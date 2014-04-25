@@ -1,0 +1,130 @@
+﻿@{
+    ViewBag.Title = "Shopping Cart";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<div id="shoppingCart" class="col-xs-12 col-sm-12 col-md-12" style="padding-top: 25px;">
+
+    <div class="panel panel-primary">
+        <div class="panel panel-heading">
+            <h3>Shopping Cart</h3>
+        </div>
+        
+            <div class="alert alert-warning col-md-6 col-md-offset-3" data-bind="visible: showCartEmptyMsg">
+                Your shopping cart is empty!
+            </div>
+        
+        <table class="table table-striped table-bordered table-hover" data-bind="visible: !showCartEmptyMsg()">
+            <thead>
+                <tr>
+                    <th class="text-center">Image</th>
+                    <th class="text-left">Product Name</th>
+                    <th class="text-right">Quantity</th>
+                    <th class="text-right">Unit Price</th>
+                    <th class="text-right">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- ko foreach:cart -->
+                <tr>
+                    <td class="text-center"></td>
+                    <td class="text-left" data-bind="text: $data.Name"></td>
+
+                    <td class="text-right">
+                        <input type="number" autocomplete="off" min="1" value="2" data-bind="value: $data.Quantity" />
+                        <div class="btn-group">
+                            <a class="btn btn-default" data-bind="click: $root.updateCart">
+                                <i class="glyphicon glyphicon-refresh" title="" data-toggle="tooltip" data-original-title="Update"></i>
+                            </a>
+                            <a class="btn btn-default" data-bind="click: $root.deleteCartItem">
+                                <i class="glyphicon glyphicon-remove" title="" data-toggle="tooltip" data-original-title="Remove"></i>
+                            </a>
+                        </div>
+                    </td>
+                    <td class="text-right" data-bind="text: '£' + $data.UnitPriceInStr"></td>
+                    <td class="text-right" data-bind="text: '£' + $data.TotalPriceInStr"></td>
+                </tr>
+                <!-- /ko -->
+            </tbody>
+        </table>
+
+        <table class="table table-striped" data-bind="visible: !showCartEmptyMsg()">
+            <tbody>
+                <tr>
+                    <td class="text-right">Sub-Total:</td>
+                    <td class="text-right span2" data-bind="text: '£' + subTotalPrice()"></td>
+                </tr>
+                <tr>
+                    <td class="text-right">VAT (20%):</td>
+                    <td class="text-right" data-bind="text: '£' + vatPrice()"></td>
+                </tr>
+                <tr>
+                    <td class="text-right">Total:</td>
+                    <td class="text-right span2" data-bind="text: '£' + totalPrice()"></td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+        <div class="panel panel-footer">
+            <div class="row">
+                <div class="col-xs-3" data-bind="visible: showCartEmptyMsg">
+                    <a class="btn btn-primary pull-left" href="@Url.Action("ProductView", "Product")"><i class="glyphicon glyphicon-share-alt"></i>Continue</a>
+                </div>
+                <div style="padding-right: 25px; padding-left: 25px;" data-bind="visible: !showCartEmptyMsg()">
+                    <a class="btn btn-primary pull-left" href="@Url.Action("ProductView", "Product")"><i class="glyphicon glyphicon-share-alt"></i>Continue Shopping</a>
+                    <a class="btn btn-success pull-right" href="@Url.Action("CheckOut", "Checkout")"><i class="glyphicon glyphicon-shopping-cart"></i>Checkout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script type="text/javascript">
+    var shoppingCartViewModel = {
+        cart: ko.observableArray(@Html.Raw(@ViewBag.ShoppingCart))
+    };
+    shoppingCartViewModel.showCartEmptyMsg = ko.computed(function () {
+        if (shoppingCartViewModel.cart().length > 0) {
+            return false;
+        }
+        return true;
+    });
+    shoppingCartViewModel.updateCart = function (data) {
+        $.post("@Url.Action("UpdateCart")", { code: data.Code, quantity: data.Quantity }, function (result) {
+            shoppingCartViewModel.cart(result);
+        });
+    };
+    shoppingCartViewModel.deleteCartItem = function (data) {
+        $.post("@Url.Action("DeleteCartItem")", { code: data.Code }, function (result) {
+            shoppingCartViewModel.cart(result);
+        });
+    };
+    shoppingCartViewModel.subTotalPrice = ko.computed(function () {
+        var totalPrice = 0.00;
+        var shoppingCart = shoppingCartViewModel.cart();
+        $.each(shoppingCart, function (index, value) {
+            totalPrice += value.TotalPrice;
+        });
+        return totalPrice.toFixed(2);
+    });
+
+    shoppingCartViewModel.totalPrice = ko.computed(function () {
+        var subtotal = shoppingCartViewModel.subTotalPrice();
+        var totalPrice = subtotal * 120 / 100;
+        return totalPrice.toFixed(2);
+    });
+
+    shoppingCartViewModel.vatPrice = ko.computed(function() {
+        var vatprice = shoppingCartViewModel.subTotalPrice() * 20 / 100;
+        return vatprice.toFixed(2);
+    });
+
+    ko.applyBindings(shoppingCartViewModel, $('#shoppingCart')[0]);
+</script>

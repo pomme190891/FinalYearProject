@@ -1,0 +1,97 @@
+﻿@{
+    ViewBag.Title = "UserList";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+
+<form id="tryitForm" class="form-horizontal">
+    <div class="form-group">
+        <label class="col-md-3 control-label">Full name</label>
+        <div class="col-md-4">
+            <input type="text" class="form-control" name="firstName" />
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control" name="lastName" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-3 control-label">Email address</label>
+        <div class="col-md-6">
+            <input type="text" class="form-control" name="email" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-3 control-label">Gender</label>
+        <div class="col-md-6">
+            <div class="radio">
+                <label><input type="radio" name="gender" value="male" /> Male</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" name="gender" value="female" /> Female</label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" name="gender" value="other" /> Other</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-3 col-md-8">
+            <button type="submit" class="btn btn-primary">Say hello</button>
+        </div>
+    </div>
+</form>
+
+
+<script>
+$(document).ready(function() {
+    $('#tryitForm').bootstrapValidator({
+        fields: {
+            firstName: {
+                validators: {
+                    notEmpty: {
+                        message: 'The first name is required and cannot be empty'
+                    }
+                }
+            },
+            lastName: {
+                validators: {
+                    notEmpty: {
+                        message: 'The last name is required and cannot be empty'
+                    }
+                }
+            },
+            email: {
+                validators: {
+                    notEmpty: {
+                        message: 'The email address is required'
+                    },
+                    emailAddress: {
+                        message: 'The input is not a valid email address'
+                    }
+                }
+            },
+            gender: {
+                validators: {
+                    notEmpty: {
+                        message: 'The gender is required'
+                    }
+                }
+            }
+        },
+        submitHandler: function(validator, form, submitButton) {
+            var fullName = [validator.getFieldElements('firstName').val(),
+                            validator.getFieldElements('lastName').val()].join(' ');
+            $('#helloModal')
+                .find('.modal-title').html('Hello ' + fullName).end()
+                .modal();
+        }
+    });
+});
+</script>
+
+
+
+
