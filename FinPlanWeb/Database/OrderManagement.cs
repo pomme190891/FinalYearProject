@@ -10,9 +10,83 @@ namespace FinPlanWeb.Database
 {
     public class OrderManagement
     {
+        public class Order
+        {
+            public int Id { get; set; }
+            public int UserId { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+            public string PayerEmail { get; set; }
+            public DateTime PaymentDate { get; set; }
+            public string PaymentStatus { get; set; }
+            public decimal Gross { get; set; }
+            public decimal Currency{ get; set; }
+            public DateTime DateCreated{ get; set; }
+            public string PaypalId{ get; set; }
+            public string DirectDebitId{ get; set; }
+            public string CodeId{ get; set; }
+
+            public string PaymentType { get; set; }
+        }
+
         public static string GetConnection()
         {
             return System.Configuration.ConfigurationManager.ConnectionStrings["standard"].ConnectionString;
+        }
+
+        public static IEnumerable<Order> GetAllOrders()
+        {
+            var orders = new List<Order>();
+            using (var connection = new SqlConnection(GetConnection()))
+            {
+                const string sql =
+                    @"SELECT [orderID]
+                      ,[userID]
+                      ,[firstName]
+                      ,[lastName]
+                      ,[payerEmail]
+                      ,[paymentDate]
+                      ,[paymentStatus]
+                      ,[paymentType]
+                      ,[mcGross]
+                      ,[mcCurrency]
+                      ,[dateCreated]
+                      ,[paypalID]
+                      ,[directdebitID]
+                      ,[codeID]
+                        FROM [finplanweb].[dbo].[orders]";
+                var cmd = new SqlCommand(sql, connection);
+                connection.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var order = new Order
+                        {
+                            Id = reader.GetInt32(0),
+                            UserId = reader.GetInt32(1),
+                            FirstName = reader.GetString(2),
+                            LastName = reader.GetString(3),
+                            PayerEmail = reader.GetString(4),
+                            PaymentDate = reader.GetDateTime(5),
+                            PaymentStatus = reader.GetString(6),
+                            PaymentType = reader.GetString(7),
+                            Gross = reader.GetSqlMoney(8).ToDecimal(),
+                            Currency = reader.GetSqlMoney(9).ToDecimal(),
+                            DateCreated = reader.GetDateTime(10),
+                            PaypalId = reader.IsDBNull(11) ? null: reader.GetString(11),
+                            DirectDebitId = reader.IsDBNull(12) ? null : reader.GetString(12),
+                            CodeId = reader.IsDBNull(13) ? null : reader.GetString(13),
+                        };
+
+                        orders.Add(order);
+                    }
+
+                }
+
+                return orders;
+            }
         }
 
         public static void RecordPayPalTransaction(Checkout checkout, List<CartItem> cart, string paypalid, int userid)

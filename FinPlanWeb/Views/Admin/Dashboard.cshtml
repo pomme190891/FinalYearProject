@@ -31,8 +31,9 @@
                 <p>Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui. Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth.</p>
             </div>
             <div id="orderhistory" class="tab-pane fade">
-                <h3>Section B</h3>
-                <p>Vestibulum nec erat eu nulla rhoncus fringilla ut non neque. Vivamus nibh urna, ornare id gravida ut, mollis a magna. Aliquam porttitor condimentum nisi, eu viverra ipsum porta ut. Nam hendrerit bibendum turpis, sed molestie mi fermentum id. Aenean volutpat velit sem. Sed consequat ante in rutrum convallis. Nunc facilisis leo at faucibus adipiscing.</p>
+                @{
+                    Html.RenderAction("OrderHistory", "OrderManagement");
+                }
             </div>
             <div id="manageuser" class="tab-pane fade">
                 <div id="usertable">
@@ -307,22 +308,22 @@
             model.filter.subscribe(function(value) {
                 $.ajax({
                     url: "@Url.Action("Filter")",
-                type: "POST",
-                data: { isInactive: parseInt(value) },
-                dataType: "json",
-                success: function (result) {
-                    model.users(result.users);
-                    debugger;
-                    $('#page-selection').bootpag({
-                        total: result.totalPage
-                    }).on("page", function (event, /* page number here */ num) {
-                        $.post("@Url.Action("Paging")", {num:num,isInactive:parseInt(value)}, function(users) {
+                    type: "POST",
+                    data: { isInactive: parseInt(value) },
+                    dataType: "json",
+                    success: function (result) {
+                        model.users(result.users);
+                        debugger;
+                        $('#page-selection').bootpag({
+                            total: result.totalPage
+                        }).on("page", function (event, /* page number here */ num) {
+                            $.post("@Url.Action("Paging")", {num:num,isInactive:parseInt(value)}, function(users) {
                             model.users(users);
                         });
                     });
                 }
+                });
             });
-        });
 
         model.edit = function(data) {
             model.creating(false);
@@ -433,76 +434,76 @@
                 total: @ViewBag.TotalUsersPage
                 }).on("page", function (event, /* page number here */ num) {
                     $.post("@Url.Action("Paging")", {num:num,isInactive:parseInt(model.filter())}, function(users) {
-                    model.users(users);
+                        model.users(users);
+                    });
                 });
-            });
 
-            ko.applyBindings(model, $('#usertable')[0]);
-
+                ko.applyBindings(model, $('#usertable')[0]);
 
 
-            //$(document).ready(function() {
 
-            //    $('#myModal').bootstrapValidator({
-            //        message: 'This value is not valid',
-            //        feedbackIcons: {
-            //            valid: 'glyphicon glyphicon-ok',
-            //            invalid: 'glyphicon glyphicon-remove',
-            //            validating: 'glyphicon glyphicon-refresh'
-            //        },
-            //        fields: {
-            //            username: {
-            //                message: 'The username is not valid',
-            //                validators: {
-            //                    notEmpty: {
-            //                        message: 'The username is required and can\'t be empty'
-            //                    },
-            //                    stringLength: {
-            //                        min: 6,
-            //                        max: 30,
-            //                        message: 'The username must be more than 6 and less than 30 characters long'
-            //                    },
-            //                    regexp: {
-            //                        regexp: /^[a-zA-Z0-9_\.]+$/,
-            //                        message: 'The username can only consist of alphabetical, number, dot and underscore'
-            //                    }
-            //                }
-            //            },
-            //            email: {
-            //                validators: {
-            //                    notEmpty: {
-            //                        message: 'The email address is required and can\'t be empty'
-            //                    },
-            //                    emailAddress: {
-            //                        message: 'The input is not a valid email address'
-            //                    }
-            //                }
-            //            },
-            //            password: {
-            //                validators: {
-            //                    notEmpty: {
-            //                        message: 'The password is required and can\'t be empty'
-            //                    },
-            //                    identical: {
-            //                        field: 'confirmPassword',
-            //                        message: 'The password and its confirm are not the same'
-            //                    }
-            //                }
-            //            },
-            //            confirmPassword: {
-            //                validators: {
-            //                    notEmpty: {
-            //                        message: 'The confirm password is required and can\'t be empty'
-            //                    },
-            //                    identical: {
-            //                        field: 'password',
-            //                        message: 'The password and its confirm are not the same'
-            //                    }
-            //                }
-            //            }
-            //        }
-            //    });
-            //});
+                //$(document).ready(function() {
+
+                //    $('#myModal').bootstrapValidator({
+                //        message: 'This value is not valid',
+                //        feedbackIcons: {
+                //            valid: 'glyphicon glyphicon-ok',
+                //            invalid: 'glyphicon glyphicon-remove',
+                //            validating: 'glyphicon glyphicon-refresh'
+                //        },
+                //        fields: {
+                //            username: {
+                //                message: 'The username is not valid',
+                //                validators: {
+                //                    notEmpty: {
+                //                        message: 'The username is required and can\'t be empty'
+                //                    },
+                //                    stringLength: {
+                //                        min: 6,
+                //                        max: 30,
+                //                        message: 'The username must be more than 6 and less than 30 characters long'
+                //                    },
+                //                    regexp: {
+                //                        regexp: /^[a-zA-Z0-9_\.]+$/,
+                //                        message: 'The username can only consist of alphabetical, number, dot and underscore'
+                //                    }
+                //                }
+                //            },
+                //            email: {
+                //                validators: {
+                //                    notEmpty: {
+                //                        message: 'The email address is required and can\'t be empty'
+                //                    },
+                //                    emailAddress: {
+                //                        message: 'The input is not a valid email address'
+                //                    }
+                //                }
+                //            },
+                //            password: {
+                //                validators: {
+                //                    notEmpty: {
+                //                        message: 'The password is required and can\'t be empty'
+                //                    },
+                //                    identical: {
+                //                        field: 'confirmPassword',
+                //                        message: 'The password and its confirm are not the same'
+                //                    }
+                //                }
+                //            },
+                //            confirmPassword: {
+                //                validators: {
+                //                    notEmpty: {
+                //                        message: 'The confirm password is required and can\'t be empty'
+                //                    },
+                //                    identical: {
+                //                        field: 'password',
+                //                        message: 'The password and its confirm are not the same'
+                //                    }
+                //                }
+                //            }
+                //        }
+                //    });
+                //});
         </script>
     </div>
 </div>

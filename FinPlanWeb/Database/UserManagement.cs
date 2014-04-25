@@ -9,7 +9,6 @@ namespace FinPlanWeb.Database
 {
     public class UserManagement
     {
-
         public class User
         {
             public int Id { get; set; }
@@ -26,9 +25,6 @@ namespace FinPlanWeb.Database
             public DateTime? ModifiedDate { get; set; }
             public bool IsDeleted { get; set; }
         }
-
-
-
 
 
         /// This part checks if the user with password is existing within the database 

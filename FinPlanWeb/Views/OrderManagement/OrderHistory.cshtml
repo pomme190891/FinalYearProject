@@ -1,0 +1,98 @@
+﻿@{
+    Layout = "";
+}
+<div id="orderManagement">
+    <h4>Order History</h4>
+    <div>
+        <input type="text" class="datepicker" data-bind="value: searchParam.from" placeholder="From" />
+        <input type="text" class="datepicker" data-bind="value: searchParam.to" placeholder="To" />
+        <input type="text" data-bind="value: searchParam.firm" placeholder="Firm" />
+        <select data-bind="value: searchParam.paymentType">
+            <option value="">All</option>
+            <option value="Paypal">Paypal</option>
+            <option value="Direct Debit">Direct Debit</option>
+        </select>
+        <button type="button" class="btn btn-primary" data-bind="click: search">Search</button>
+    </div>
+    @*<div class="alert alert-danger" data-bind="html: validationMessage, visible: validationMessage"></div>*@
+
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover" style="font-size: 11px">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Payment Type</th>
+                    <th>Currency</th>
+                    <th>Buyer Username</th>
+                    <th>Buyer Firm Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- ko foreach:orders -->
+                <tr>
+                    <td class="col-md-1" data-bind="text: Id"></td>
+                    <td class="col-md-1" data-bind="text: Name"></td>
+                    <td class="col-md-1" data-bind="text: TransactionDate"></td>
+                    <td class="col-md-2" data-bind="text: PaymentType"></td>
+                    <td class="col-md-2" data-bind="text: '£ ' + Currency.toFixed(2)"></td>
+                    <td class="col-md-3" data-bind="text: BuyerUsername"></td>
+                    <td class="col-md-3" data-bind="text: BuyerFirmName"></td>
+                    @*                    <td class="col-md-3">
+                        <button type="button" class="btn btn-primary btn-xs">Edit</button>
+                        <button type="button" class="btn btn-danger btn-xs">Delete</button>
+                        <button type="button" class="btn btn-warning btn-xs">Change Password</button>
+                    </td>*@
+                </tr>
+                <!-- /ko -->
+            </tbody>
+        </table>
+        <div id="page-selection-orderhistory"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    var orderVM = {
+        orders: ko.observableArray(@Html.Raw(@ViewBag.Orders)),
+        searchParam: {
+            paymentType: ko.observable(),
+            from: ko.observable(),
+            to: ko.observable(),
+            firm: ko.observable()
+        }
+    };
+    orderVM.search = function () {
+        $.post("@Url.Action("Search", "OrderManagement")", {
+            paymentType: orderVM.searchParam.paymentType(),
+            from: orderVM.searchParam.from(),
+            to: orderVM.searchParam.to(),
+            firm: orderVM.searchParam.firm()
+        }, function (ret) {
+            orderVM.orders(ret.orderList);
+            orderVM.InitialisePaging(ret.totalPage);
+        });
+    };
+
+    orderVM.InitialisePaging = function (totalPage) {
+        $('#page-selection-orderhistory').bootpag({
+            total: totalPage
+        }).on("page", function (event, /* page number here */ num) {
+            $.post("@Url.Action("Paging", "OrderManagement")", {
+                pageNum: num,
+                    paymentType: orderVM.searchParam.paymentType(),
+                    from: orderVM.searchParam.from(),
+                    to: orderVM.searchParam.to(),
+                    firm: orderVM.searchParam.firm(),
+                }, function (ret) {
+                    orderVM.orders(ret.orderList);
+                });
+            });
+    };
+
+        ko.applyBindings(orderVM, $('#orderManagement')[0]);
+        orderVM.InitialisePaging(@ViewBag.TotalOrdersPage);
+    $('.datepicker').datepicker(
+        {
+            dateFormat: "d/mm/yy",
+        });
+</script>

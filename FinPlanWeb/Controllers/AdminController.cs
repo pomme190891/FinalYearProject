@@ -4,41 +4,13 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using FinPlanWeb.DTOs;
 using FinPlanWeb.Database;
 
 namespace FinPlanWeb.Controllers
 {
-    public class EditUserDTO
-    {
-        public int Id { get; set; }
-        public string UserName { get; set; }
-        public string FirstName { get; set; }
-        public string SurName { get; set; }
-        public string FirmName { get; set; }
-        public string Password { get; set; }
-        public string Email { get; set; }
-        public bool IsAdmin { get; set; }
-        public string ConfirmPassword { get; set; }
-
-        public UserManagement.User ToUser()
-        {
-            return new UserManagement.User
-            {
-                Id = Id,
-                UserName = UserName,
-                FirstName = FirstName,
-                SurName = SurName,
-                FirmName = FirmName,
-                Password = Password,
-                Email = Email,
-                IsAdmin = IsAdmin
-            };
-        }
-    }
-
     public class AdminController : BaseController
     {
-        //
         // GET: /Admin/
         private const int pageSize = 10;
 
@@ -89,11 +61,16 @@ namespace FinPlanWeb.Controllers
 
         public ActionResult Dashboard()
         {
+            PopulateUserAdministration();
+            return View();
+        }
+
+        private void PopulateUserAdministration()
+        {
             var allUsers = UserManagement.GetAllUserList();
             var filteredUsers = ApplyPaging(allUsers, 1);
             ViewBag.Users = new JavaScriptSerializer().Serialize(filteredUsers);
-            ViewBag.TotalUsersPage = (int)Math.Ceiling(((double)allUsers.Count() / (double)pageSize));
-            return View();
+            ViewBag.TotalUsersPage = (int) Math.Ceiling(((double) allUsers.Count()/(double) pageSize));
         }
 
         public ActionResult AddUser(EditUserDTO user)
