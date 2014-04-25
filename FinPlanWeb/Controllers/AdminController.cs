@@ -122,7 +122,7 @@ namespace FinPlanWeb.Controllers
         public ActionResult UserUpdate(EditUserDTO user)
         {
             var validationIds = new List<string>();
-            var validationMessage = Validate(user, false,out validationIds);
+            var validationMessage = Validate(user, false, out validationIds);
             if (!validationMessage.Any())
             {
                 UserManagement.UpdateUser(user.ToUser());
@@ -147,7 +147,7 @@ namespace FinPlanWeb.Controllers
             });
         }
 
-        public List<string> Validate(EditUserDTO user, bool isCreating,out List<string> invalidIds)
+        public List<string> Validate(EditUserDTO user, bool isCreating, out List<string> invalidIds)
         {
             var validationMessage = new List<string>();
             var validationId = new List<string>();
@@ -223,8 +223,10 @@ namespace FinPlanWeb.Controllers
                 var regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
                 var match = regex.Match(user.Email);
                 if (!match.Success)
+                {
                     validationMessage.Add("Invalid email format.");
-                validationId.Add("Email");
+                    validationId.Add("Email");
+                }
             }
 
             if (isCreating && !string.IsNullOrEmpty(user.Password))
@@ -233,7 +235,7 @@ namespace FinPlanWeb.Controllers
                 var match = regex.Match(user.Password);
                 if (!match.Success)
                     validationMessage.Add("Invalid Password. Password must contain at least a digit, a uppercase and a lowercase letter. Mininum 6 characters are required. ");
-                    validationId.Add("Password");
+                validationId.Add("Password");
             }
 
             invalidIds = validationId;
