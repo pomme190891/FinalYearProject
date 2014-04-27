@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
+using System.Text;
 using System.Text.RegularExpressions;
-using System.Web;
-using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Script.Serialization;
-using System.Web.WebPages;
 using FinPlanWeb.Database;
 using FinPlanWeb.DTOs;
 using FinPlanWeb.Models;
@@ -59,21 +57,57 @@ namespace FinPlanWeb.Controllers
 
             OrderManagement.RecordDirectDebitTransaction(checkout, cart, user.Id);
 
-            SendEmail(checkout);
+            SendEmail(checkout, cart);
             return View();
         }
 
-        private void SendEmail(Checkout checkout, string orderNumber = "")
+        private void SendEmail(Checkout checkout, List<CartItem> cart, string orderNumber = "")
         {
             var mail = new MailMessage("you@yourcompany.com", checkout.BillingInfo.Email);
             var client = new SmtpClient();
+            var bodyText = "<html>" +
+                           "<head>" +
+                               "<style> " +
+                                "table{border-collapse:collapse;} " +
+                                "table, td, th{border:1px solid black;} " +
+                               "</style>" +
+                           "</head>" +
+                           "<body>" +
+                           "<h2>Your order has been confirmed. The order number is : +" + orderNumber + "</h2>" +
+                           "<p>Below are a list of items that you have purchased:</p></br></br>" +
+                           "<table>" +
+                               "<thead>" +
+                                   "<tr>" +
+                                       "<td>Product Code</td>" +
+                                       "<td>Product Name</td>" +
+                                       "<td>Quantity</td>" +
+                                   "</tr>" +
+                               "</thead>" +
+                               "<tbody>" +
+                               GenerateInnerOrderItem(cart) +
+                               "</tbody>" +
+                           "</table>" +
+                           "</body>" +
+                           "</html>";
             client.Port = 25;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = false;
             client.Host = "localhost";
             mail.Subject = "Order Confirmation:" + orderNumber;
-            mail.Body = "this is my test email body";
+            mail.IsBodyHtml = true;
+            mail.Body = bodyText;
             client.Send(mail);
+        }
+
+        private string GenerateInnerOrderItem(List<CartItem> cart)
+        {
+            var stringBuilder = new StringBuilder();
+            foreach (var item in cart)
+            {
+                stringBuilder.Append(string.Format("<tr><td>{0}</td><td>{1}</td><td>{2}</td></tr>", item.Code, item.Name,
+                                                   item.Quantity));
+            }
+            return stringBuilder.ToString();
         }
 
         private IEnumerable<string> Validate(Checkout checkout)
