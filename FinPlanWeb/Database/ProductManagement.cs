@@ -38,10 +38,8 @@ namespace FinPlanWeb.Database
             ITSupport
         }
 
-
         public static Product GetProduct(string productCode)
         {
-
             using (var connection = new SqlConnection(GetConnection()))
             {
 
@@ -49,7 +47,6 @@ namespace FinPlanWeb.Database
                 var cmd = new SqlCommand(sql, connection);
 
                 cmd.Parameters
-
                           .Add(new SqlParameter("@c", SqlDbType.NVarChar))
                           .Value = productCode;
 
@@ -72,11 +69,6 @@ namespace FinPlanWeb.Database
                 cmd.Dispose();
                 return null;
             }
-
-
-
-
-
         }
 
 

@@ -17,7 +17,7 @@ namespace FinPlanWeb.Controllers
         {
             var users = UserManagement.GetAllUserList();
             var orders = OrderManagement.GetAllOrders();
-            var filteredOrders = SearchFunction(@from, to, paymentType, firm, orders, users,1);
+            var filteredOrders = SearchFunction(@from, to, paymentType, firm, orders, users, 1);
 
             var orderList = PopulateOrderList(filteredOrders, users);
             var totalPage = (int)Math.Ceiling(((double)orders.Count() / (double)pageSize));
@@ -25,7 +25,7 @@ namespace FinPlanWeb.Controllers
         }
 
         private static IEnumerable<OrderManagement.Order> SearchFunction(string @from, string to, string paymentType, string firm, IEnumerable<OrderManagement.Order> orders,
-                                                  IEnumerable<UserManagement.User> users,int pageNum)
+                                                  IEnumerable<UserManagement.User> users, int pageNum)
         {
             if (!string.IsNullOrEmpty(@from))
             {
@@ -53,13 +53,59 @@ namespace FinPlanWeb.Controllers
 
         public ActionResult OrderHistory()
         {
+            var serializer = new JavaScriptSerializer();
             var users = UserManagement.GetAllUserList();
             var orders = OrderManagement.GetAllOrders();
             var filteredOrders = SearchFunction(null, null, null, null, orders, users, 1);
             var orderList = PopulateOrderList(filteredOrders, users);
-            ViewBag.Orders = new JavaScriptSerializer().Serialize(orderList);
+            ViewBag.Orders = serializer.Serialize(orderList);
             ViewBag.TotalOrdersPage = (int)Math.Ceiling(((double)orders.Count() / (double)pageSize)); ;
+            ViewBag.OrderDetail = serializer.Serialize(new OrderDetailDTO());
             return View();
+        }
+
+        public ActionResult GetFullOrderDetail(int orderId)
+        {
+            var order = OrderManagement.GetAllOrders().Single(x => x.Id == orderId);
+            var orderItem = OrderManagement.GetOrderItems(orderId);
+            var user = UserManagement.GetAllUserList().Single(x => x.Id == order.UserId);
+            var products = ProductManagement.GetProducts(ProductManagement.ProductType.All)
+                .Where(x => IdInList(x.Id, orderItem.Select(o => o.ProductId).ToArray()));
+
+            var orderDetail = new OrderDetailDTO
+                {
+                    Id = order.Id,
+                    BuyerFirmName = user.FirmName,
+                    BuyerUsername = user.UserName,
+                    Currency = order.Currency,
+                    DirectDebitId = order.DirectDebitId,
+                    FirstName = order.FirstName,
+                    Gross = order.Gross,
+                    LastName = order.LastName,
+                    Email = order.PayerEmail,
+                    PaymentStatus = order.PaymentStatus,
+                    PaymentType = order.PaymentType,
+                    PaypalId = order.PaypalId,
+                    PromotionCodeId = order.CodeId,
+                    TransactionDate = order.DateCreated.ToString("dd/MM/yyyy")
+                };
+
+            foreach (var item in orderItem)
+            {
+                var product = products.SingleOrDefault(x => x.Id == item.ProductId);
+                orderDetail.OrderItems.Add(new OrderItemDTO
+                    {
+                        ProductName = product.Name,
+                        ProductCode = product.Code,
+                        Quantity = item.Quantity
+                    });
+            }
+            return Json(new {orderDetail}, JsonRequestBehavior.AllowGet);
+        }
+
+        private bool IdInList(int id, IEnumerable<int> ids)
+        {
+            return ids.Any(i => i == id);
         }
 
         private static List<OrderDTO> PopulateOrderList(IEnumerable<OrderManagement.Order> orders, IEnumerable<UserManagement.User> users)

@@ -161,6 +161,7 @@
     <Compile Include="Database\ProductManagement.cs" />
     <Compile Include="Database\PromoManagement.cs" />
     <Compile Include="Database\UserManagement.cs" />
+    <Compile Include="DTOs\OrderDetailDTO.cs" />
     <Compile Include="DTOs\OrderDTO.cs" />
     <Compile Include="DTOs\UserLoginDTO.cs" />
     <Compile Include="Global.asax.cs">

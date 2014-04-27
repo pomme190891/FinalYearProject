@@ -59,15 +59,14 @@ namespace FinPlanWeb.Controllers
 
             OrderManagement.RecordDirectDebitTransaction(checkout, cart, user.Id);
 
-
             SendEmail(checkout);
             return View();
         }
 
         private void SendEmail(Checkout checkout, string orderNumber = "")
         {
-            MailMessage mail = new MailMessage("you@yourcompany.com", checkout.BillingInfo.Email);
-            SmtpClient client = new SmtpClient();
+            var mail = new MailMessage("you@yourcompany.com", checkout.BillingInfo.Email);
+            var client = new SmtpClient();
             client.Port = 25;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = false;

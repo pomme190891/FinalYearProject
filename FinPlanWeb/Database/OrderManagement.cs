@@ -10,6 +10,14 @@ namespace FinPlanWeb.Database
 {
     public class OrderManagement
     {
+        public class OrderItem
+        {
+            public int Id { get; set; }
+            public int ProductId { get; set; }
+            public int Quantity { get; set; }
+            public int OrderId { get; set; }
+        }
+
         public class Order
         {
             public int Id { get; set; }
@@ -20,11 +28,11 @@ namespace FinPlanWeb.Database
             public DateTime PaymentDate { get; set; }
             public string PaymentStatus { get; set; }
             public decimal Gross { get; set; }
-            public decimal Currency{ get; set; }
-            public DateTime DateCreated{ get; set; }
-            public string PaypalId{ get; set; }
-            public string DirectDebitId{ get; set; }
-            public string CodeId{ get; set; }
+            public decimal Currency { get; set; }
+            public DateTime DateCreated { get; set; }
+            public string PaypalId { get; set; }
+            public string DirectDebitId { get; set; }
+            public string CodeId { get; set; }
 
             public string PaymentType { get; set; }
         }
@@ -32,6 +40,42 @@ namespace FinPlanWeb.Database
         public static string GetConnection()
         {
             return System.Configuration.ConfigurationManager.ConnectionStrings["standard"].ConnectionString;
+        }
+
+        public static IEnumerable<OrderItem> GetOrderItems(int orderId)
+        {
+            var orderItems = new List<OrderItem>();
+            using (var connection = new SqlConnection(GetConnection()))
+            {
+                const string sql =
+                    @"SELECT [ID]
+                      ,[ProductID]
+                      ,[qty]
+                      ,[orderID]
+                      FROM [finplanweb].[dbo].[orderItems]" +
+                      " WHERE orderId = @orderId";
+                var cmd = new SqlCommand(sql, connection);
+                cmd.Parameters
+                     .Add(new SqlParameter("@orderId", SqlDbType.Int))
+                     .Value = orderId;
+                connection.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var order = new OrderItem
+                        {
+                            Id = reader.GetInt32(0),
+                            ProductId = reader.GetInt32(1),
+                            Quantity = reader.GetInt32(2),
+                            OrderId = reader.GetInt32(2)
+                        };
+                        orderItems.Add(order);
+                    }
+                }
+                return orderItems;
+            }
         }
 
         public static IEnumerable<Order> GetAllOrders()
@@ -75,7 +119,7 @@ namespace FinPlanWeb.Database
                             Gross = reader.GetSqlMoney(8).ToDecimal(),
                             Currency = reader.GetSqlMoney(9).ToDecimal(),
                             DateCreated = reader.GetDateTime(10),
-                            PaypalId = reader.IsDBNull(11) ? null: reader.GetString(11),
+                            PaypalId = reader.IsDBNull(11) ? null : reader.GetString(11),
                             DirectDebitId = reader.IsDBNull(12) ? null : reader.GetString(12),
                             CodeId = reader.IsDBNull(13) ? null : reader.GetString(13),
                         };
@@ -114,8 +158,8 @@ namespace FinPlanWeb.Database
                 cmd.Parameters.AddWithValue("@email", checkout.BillingInfo.Email);
                 cmd.Parameters.AddWithValue("@date", DateTime.Now);
                 cmd.Parameters.AddWithValue("@status", "Success");
-                cmd.Parameters.AddWithValue("@type", checkout.PaymentInfo.IsDirectDebit ?  "Direct Debit" : "Paypal");
-                cmd.Parameters.AddWithValue("@gross", CalculateGross(cart) );
+                cmd.Parameters.AddWithValue("@type", checkout.PaymentInfo.IsDirectDebit ? "Direct Debit" : "Paypal");
+                cmd.Parameters.AddWithValue("@gross", CalculateGross(cart));
                 cmd.Parameters.AddWithValue("@net", CalculateNet(cart));
                 cmd.Parameters.AddWithValue("@dateCreated", DateTime.Now);
                 cmd.Parameters.AddWithValue("@pID", paypalid);
@@ -231,7 +275,7 @@ namespace FinPlanWeb.Database
         private static decimal CalculateNet(List<CartItem> cart)
         {
             var gross = Convert.ToDecimal(cart.Select(x => x.TotalPrice).Sum());
-            return gross*120/100;
+            return gross * 120 / 100;
         }
 
         private static decimal CalculateGross(List<CartItem> cart)
