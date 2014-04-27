@@ -124,6 +124,49 @@ namespace FinPlanWeb.Controllers
             });
         }
 
+        public ActionResult ChangePassword(int userId, string newPassword)
+        {
+            var validationIds = new List<string>();
+            var validationMessage = ValidatePassword(newPassword, out validationIds);
+            if (!validationMessage.Any())
+            {
+                UserManagement.UpdateUserPassword(userId,newPassword);
+            }
+
+            return Json(new
+            {
+                passed = !validationMessage.Any(),
+                validationIds,
+                validationMessage = string.Join("</br>", validationMessage)
+            });
+        }
+
+        public List<string> ValidatePassword(string newPassword, out List<string> invalidIds)
+        {
+            var validationMessage = new List<string>();
+            var validationId = new List<string>();
+
+            if (string.IsNullOrEmpty(newPassword))
+            {
+                validationMessage.Add("New password is empty. ");
+                validationId.Add("NewPassword");
+            }
+
+            if (!string.IsNullOrEmpty(newPassword))
+            {
+                var regex = new Regex(@"^.*(?=.{6,})(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$");
+                var match = regex.Match(newPassword);
+                if (!match.Success)
+                {
+                    validationMessage.Add("Invalid Password. Password must contain at least a digit, a uppercase and a lowercase letter. Mininum 6 characters are required. ");
+                    validationId.Add("NewPassword");
+                }
+            }
+
+            invalidIds = validationId;
+            return validationMessage;
+        }
+
         public List<string> Validate(EditUserDTO user, bool isCreating, out List<string> invalidIds)
         {
             var validationMessage = new List<string>();
@@ -211,8 +254,10 @@ namespace FinPlanWeb.Controllers
                 var regex = new Regex(@"^.*(?=.{6,})(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$");
                 var match = regex.Match(user.Password);
                 if (!match.Success)
+                {
                     validationMessage.Add("Invalid Password. Password must contain at least a digit, a uppercase and a lowercase letter. Mininum 6 characters are required. ");
-                validationId.Add("Password");
+                    validationId.Add("Password");
+                }
             }
 
             invalidIds = validationId;
