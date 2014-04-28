@@ -55,14 +55,14 @@ namespace FinPlanWeb.Controllers
             {
                 if (UserManagement.IsValid(user.Username, user.Password))
                 {
-                    if (UserManagement.IsAdmin(user.Username, user.Password))
-                    {
-                        FormsAuthentication.SetAuthCookie(user.Username, user.RememberMe);
-                        return RedirectToAction("Dashboard", "Admin");
-                    }
                     var validUser = UserManagement.GetValidUserList().Single(x => x.UserName == user.Username);
                     FormsAuthentication.SetAuthCookie(user.Username, user.RememberMe);
-                    Session["User"] = new UserLoginDto {Username = user.Username, Id = validUser.Id};
+                    Session["User"] = new UserLoginDto { Username = user.Username, Id = validUser.Id, IsAdmin = validUser.IsAdmin};
+                    if (validUser.IsAdmin)
+                    {
+                        return RedirectToAction("Dashboard", "Admin");
+                    }
+
                     if (returnUrl != null && !string.IsNullOrEmpty(returnUrl.ToString()))
                     {
                         return Redirect(returnUrl.ToString());

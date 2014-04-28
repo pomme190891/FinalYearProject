@@ -8,5 +8,6 @@ namespace FinPlanWeb.DTOs
         public string Username { get; set; }
         public string Firstname { get; set; }
         public string Surname { get; set; }
+        public bool IsAdmin { get; set; }
     }
 }
