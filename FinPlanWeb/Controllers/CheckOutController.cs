@@ -55,13 +55,14 @@ namespace FinPlanWeb.Controllers
                 throw new InvalidOperationException("You need to validate checkout before ordering by direct debit.");
             }
 
-            OrderManagement.RecordDirectDebitTransaction(checkout, cart, user.Id);
+            int orderId;
+            OrderManagement.RecordDirectDebitTransaction(checkout, cart, user.Id, out orderId);
 
-            SendEmail(checkout, cart);
+            SendEmail(checkout, cart, orderId);
             return View();
         }
 
-        private void SendEmail(Checkout checkout, List<CartItem> cart, string orderNumber = "")
+        private void SendEmail(Checkout checkout, List<CartItem> cart, int orderNumber)
         {
             var mail = new MailMessage("you@yourcompany.com", checkout.BillingInfo.Email);
             var client = new SmtpClient();

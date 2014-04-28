@@ -198,7 +198,7 @@ namespace FinPlanWeb.Database
 
         }
 
-        public static void RecordDirectDebitTransaction(Checkout checkout, List<CartItem> cart, int userid)
+        public static void RecordDirectDebitTransaction(Checkout checkout, List<CartItem> cart, int userid, out int orderId)
         {
             SqlTransaction transaction = null;
             try
@@ -228,7 +228,7 @@ namespace FinPlanWeb.Database
                 cmd.Parameters.AddWithValue("@net", CalculateNet(cart));
                 cmd.Parameters.AddWithValue("@dateCreated", DateTime.Now);
                 cmd.Parameters.AddWithValue("@ddID", CreateDirectDebitId(17));
-                var orderId = (Int32)cmd.ExecuteScalar();
+                orderId = (Int32)cmd.ExecuteScalar();
 
                 foreach (var item in cart)
                 {
@@ -249,7 +249,6 @@ namespace FinPlanWeb.Database
                 }
 
                 transaction.Commit();
-
                 if (con.State != ConnectionState.Closed) return;
                 con.Close();
             }
