@@ -1,0 +1,81 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	deleted:    bootstrapvalidator-master/.gitignore
+#	deleted:    bootstrapvalidator-master/CHANGELOG.md
+#	deleted:    bootstrapvalidator-master/Gruntfile.js
+#	deleted:    bootstrapvalidator-master/README.md
+#	deleted:    bootstrapvalidator-master/bootstrapValidator.jquery.json
+#	deleted:    bootstrapvalidator-master/bower.json
+#	deleted:    bootstrapvalidator-master/demo/attribute.html
+#	deleted:    bootstrapvalidator-master/demo/container.html
+#	deleted:    bootstrapvalidator-master/demo/date.html
+#	deleted:    bootstrapvalidator-master/demo/enable.html
+#	deleted:    bootstrapvalidator-master/demo/formWithoutLabels.html
+#	deleted:    bootstrapvalidator-master/demo/html5.html
+#	deleted:    bootstrapvalidator-master/demo/index.html
+#	deleted:    bootstrapvalidator-master/demo/invisible.html
+#	deleted:    bootstrapvalidator-master/demo/labelWithoutClass.html
+#	deleted:    bootstrapvalidator-master/demo/live.html
+#	deleted:    bootstrapvalidator-master/demo/multiple.html
+#	deleted:    bootstrapvalidator-master/demo/remote.html
+#	deleted:    bootstrapvalidator-master/demo/remote.php
+#	deleted:    bootstrapvalidator-master/demo/selector.html
+#	deleted:    bootstrapvalidator-master/demo/submitHandler.html
+#	deleted:    bootstrapvalidator-master/demo/target.php
+#	deleted:    bootstrapvalidator-master/demo/validators.html
+#	deleted:    bootstrapvalidator-master/package.json
+#	deleted:    bootstrapvalidator-master/screenshots/screenshot.png
+#	deleted:    bootstrapvalidator-master/src/css/bootstrapValidator.css
+#	deleted:    bootstrapvalidator-master/src/js/bootstrapValidator.js
+#	deleted:    bootstrapvalidator-master/src/js/validator/base64.js
+#	deleted:    bootstrapvalidator-master/src/js/validator/between.js
+#	deleted:    bootstrapvalidator-master/src/js/validator/callback.js
+#	deleted:    bootstrapvalidator-master/src/js/validator/choice.js
+#	deleted:    bootstrapvalidator-master/src/js/validator/creditCard.js
+#	deleted:    bootstrapvalidator-master/src/js/validator/cvv.js
+#	deleted:    bootstrapvalidator-master/src/js/validator/date.js
+#	deleted:    bootstrapvalidator-master/src/js/validator/different.js
+#	deleted:    bootstrapvalidator-master/src/js/validator/digits.js
+#	deleted:    bootstrapvalidator-master/src/js/validator/emailAddress.js
+#	deleted:    bootstrapvalidator-master/src/js/validator/greaterThan.js
+#	deleted:    bootstrapvalidator-master/src/js/validator/hex.js
+#	deleted:    bootstrapvalidator-master/src/js/validator/hexColor.js
+#	deleted:    bootstrapvalidator-master/src/js/validator/iban.js
+#	deleted:    bootstrapvalidator-master/src/js/validator/identical.js
+#	deleted:    bootstrapvalidator-master/src/js/validator/integer.js
+#	deleted:    bootstrapvalidator-master/src/js/validator/ip.js
+#	deleted:    bootstrapvalidator-master/src/js/validator/isbn.js
+#	deleted:    bootstrapvalidator-master/src/js/validator/lessThan.js
+#	deleted:    bootstrapvalidator-master/src/js/validator/mac.js
+#	deleted:    bootstrapvalidator-master/src/js/validator/notEmpty.js
+#	deleted:    bootstrapvalidator-master/src/js/validator/numeric.js
+#	deleted:    bootstrapvalidator-master/src/js/validator/phone.js
+#	deleted:    bootstrapvalidator-master/src/js/validator/regexp.js
+#	deleted:    bootstrapvalidator-master/src/js/validator/remote.js
+#	deleted:    bootstrapvalidator-master/src/js/validator/step.js
+#	deleted:    bootstrapvalidator-master/src/js/validator/stringCase.js
+#	deleted:    bootstrapvalidator-master/src/js/validator/stringLength.js
+#	deleted:    bootstrapvalidator-master/src/js/validator/uri.js
+#	deleted:    bootstrapvalidator-master/src/js/validator/uuid.js
+#	deleted:    bootstrapvalidator-master/src/js/validator/zipCode.js
+#	deleted:    bootstrapvalidator-master/vendor/bootstrap/css/bootstrap-theme.css
+#	deleted:    bootstrapvalidator-master/vendor/bootstrap/css/bootstrap-theme.css.map
+#	deleted:    bootstrapvalidator-master/vendor/bootstrap/css/bootstrap-theme.min.css
+#	deleted:    bootstrapvalidator-master/vendor/bootstrap/css/bootstrap.css
+#	deleted:    bootstrapvalidator-master/vendor/bootstrap/css/bootstrap.css.map
+#	deleted:    bootstrapvalidator-master/vendor/bootstrap/css/bootstrap.min.css
+#	deleted:    bootstrapvalidator-master/vendor/bootstrap/fonts/glyphicons-halflings-regular.eot
+#	deleted:    bootstrapvalidator-master/vendor/bootstrap/fonts/glyphicons-halflings-regular.svg
+#	deleted:    bootstrapvalidator-master/vendor/bootstrap/fonts/glyphicons-halflings-regular.ttf
+#	deleted:    bootstrapvalidator-master/vendor/bootstrap/fonts/glyphicons-halflings-regular.woff
+#	deleted:    bootstrapvalidator-master/vendor/bootstrap/js/bootstrap.js
+#	deleted:    bootstrapvalidator-master/vendor/bootstrap/js/bootstrap.min.js
+#	deleted:    bootstrapvalidator-master/vendor/jquery/jquery-1.10.2.min.js
+#	deleted:    bootstrapvalidator-master/vendor/jquery/jquery-1.10.2.min.map
+#
+

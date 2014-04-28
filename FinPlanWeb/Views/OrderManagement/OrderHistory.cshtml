@@ -138,7 +138,7 @@
 </div>
 <script type="text/javascript">
     var orderVM = {
-        orders: ko.observableArray(@Html.Raw(@ViewBag.Orders)),
+        orders: ko.observableArray(@Html.Raw(@ViewBag.Orders)), // Initially an Order array
         searchParam: {
             paymentType: ko.observable(),
             from: ko.observable(),

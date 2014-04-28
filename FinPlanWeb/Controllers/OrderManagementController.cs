@@ -13,6 +13,14 @@ namespace FinPlanWeb.Controllers
     {
         private const int pageSize = 10;
 
+        /// <summary>
+        /// Searching for Order Records
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="paymentType"></param>
+        /// <param name="firm"></param>
+        /// <returns></returns>
         public ActionResult Search(string from, string to, string paymentType, string firm)
         {
             var users = UserManagement.GetAllUserList();
@@ -24,6 +32,18 @@ namespace FinPlanWeb.Controllers
             return Json(new { orderList, totalPage }, JsonRequestBehavior.AllowGet);
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="paymentType"></param>
+        /// <param name="firm"></param>
+        /// <param name="orders"></param>
+        /// <param name="users"></param>
+        /// <param name="pageNum"></param>
+        /// <returns></returns>
         private static IEnumerable<OrderManagement.Order> SearchFunction(string @from, string to, string paymentType, string firm, IEnumerable<OrderManagement.Order> orders,
                                                   IEnumerable<UserManagement.User> users, int pageNum)
         {
@@ -51,6 +71,11 @@ namespace FinPlanWeb.Controllers
                 .Take(pageSize);
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public ActionResult OrderHistory()
         {
             var serializer = new JavaScriptSerializer();
@@ -63,7 +88,13 @@ namespace FinPlanWeb.Controllers
             ViewBag.OrderDetail = serializer.Serialize(new OrderDetailDTO());
             return View();
         }
+        
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
         public ActionResult GetFullOrderDetail(int orderId)
         {
             var order = OrderManagement.GetAllOrders().Single(x => x.Id == orderId);
@@ -103,11 +134,25 @@ namespace FinPlanWeb.Controllers
             return Json(new {orderDetail}, JsonRequestBehavior.AllowGet);
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="ids"></param>
+        /// <returns></returns>
         private bool IdInList(int id, IEnumerable<int> ids)
         {
             return ids.Any(i => i == id);
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="orders"></param>
+        /// <param name="users"></param>
+        /// <returns></returns>
         private static List<OrderDTO> PopulateOrderList(IEnumerable<OrderManagement.Order> orders, IEnumerable<UserManagement.User> users)
         {
             var orderList = new List<OrderDTO>();
@@ -129,6 +174,15 @@ namespace FinPlanWeb.Controllers
             return orderList;
         }
 
+        /// <summary>
+        /// Pagination
+        /// </summary>
+        /// <param name="pageNum"></param>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="paymentType"></param>
+        /// <param name="firm"></param>
+        /// <returns></returns>
         public ActionResult Paging(int pageNum, string from, string to, string paymentType, string firm)
         {
             var users = UserManagement.GetAllUserList();

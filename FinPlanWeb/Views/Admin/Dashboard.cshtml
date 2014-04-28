@@ -15,10 +15,10 @@
 <div style="padding-top: 25px;" id="userAdministration">
     <div class="well">
         <ul class="nav nav-tabs" id="adminTab">
-            <li class="active"><a href="#dashboard"><i class="glyphicon glyphicon-dashboard"></i>Dashboard</a></li>
-            <li><a href="#orderhistory"><i class="glyphicon glyphicon-shopping-cart"></i>Order History</a></li>
+ 
+            <li><a href="#orderhistory"><i class="glyphicon glyphicon-shopping-cart"></i>&nbsp;Order History</a></li>
             <li class="dropdown">
-                <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="glyphicon glyphicon-user"></i>User Administration <b class="caret"></b></a>
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="glyphicon glyphicon-user"></i>&nbsp;User Administration <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="#manageuser"><i class="glyphicon glyphicon-cog"></i>Manage Users</a></li>
                     <li><a href="#useractivity"><i class="glyphicon glyphicon-eye-open"></i>Users Activities</a></li>
@@ -26,11 +26,8 @@
             </li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane fade in active">
-                <h3>Section A</h3>
-                <p>Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui. Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth.</p>
-            </div>
-            <div id="orderhistory" class="tab-pane fade">
+
+            <div id="orderhistory" class="tab-pane fade in active">
                 @{
                     Html.RenderAction("OrderHistory", "OrderManagement");
                 }

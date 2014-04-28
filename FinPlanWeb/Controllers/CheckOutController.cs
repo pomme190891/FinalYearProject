@@ -27,12 +27,26 @@ namespace FinPlanWeb.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Get Promotion Info and return in Json String
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult GetPromotionInfo(string id)
         {
             var promotion = PromoManagement.GetPromotion(id);
             return Json(new { isValid = promotion != null, promotion });
         }
 
+
+        /// <summary>
+        /// Checkout Validation Method, also store checkout info as a session.
+        /// Provides serialization and deserialization functionality for AJAX-enabled applications.
+        ///  This method serializes an object and converts it to a JSON string.
+        ///  Deserialization from JSON string to any object type
+        /// </summary>
+        /// <param name="checkout"></param>
+        /// <returns></returns>
         public ActionResult ValidateCheckout(string checkout)
         {
             var serializer = new JavaScriptSerializer();
@@ -45,6 +59,10 @@ namespace FinPlanWeb.Controllers
             return Json(new { validationMessage, passed = !validationMessage.Any() });
         }
 
+        /// <summary>
+        /// Direct Debit Order
+        /// </summary>
+        /// <returns></returns>
         public ActionResult OrderByDirectDebit()
         {
             var checkout = TempData["checkoutInfo"] as Checkout;
@@ -61,6 +79,12 @@ namespace FinPlanWeb.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Get the system to send email once Direct Debit has been placed.
+        /// </summary>
+        /// <param name="checkout"></param>
+        /// <param name="cart"></param>
+        /// <param name="orderNumber"></param>
         private void SendEmail(Checkout checkout, List<CartItem> cart, string orderNumber = "")
         {
             var mail = new MailMessage("you@yourcompany.com", checkout.BillingInfo.Email);
@@ -99,6 +123,11 @@ namespace FinPlanWeb.Controllers
             client.Send(mail);
         }
 
+        /// <summary>
+        /// Generate List of Cart Items to be displayed on the email.
+        /// </summary>
+        /// <param name="cart"></param>
+        /// <returns></returns>
         private string GenerateInnerOrderItem(List<CartItem> cart)
         {
             var stringBuilder = new StringBuilder();
@@ -110,6 +139,11 @@ namespace FinPlanWeb.Controllers
             return stringBuilder.ToString();
         }
 
+        /// <summary>
+        /// Checkout Validation
+        /// </summary>
+        /// <param name="checkout"></param>
+        /// <returns></returns>
         private IEnumerable<string> Validate(Checkout checkout)
         {
             var validationMessage = new List<string>();
