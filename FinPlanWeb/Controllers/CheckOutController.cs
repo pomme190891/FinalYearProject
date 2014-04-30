@@ -80,17 +80,16 @@ namespace FinPlanWeb.Controllers
             return View();
         }
 
-<<<<<<< HEAD
+
         /// <summary>
         /// Get the system to send email once Direct Debit has been placed.
         /// </summary>
         /// <param name="checkout"></param>
         /// <param name="cart"></param>
         /// <param name="orderNumber"></param>
-        private void SendEmail(Checkout checkout, List<CartItem> cart, string orderNumber = "")
-=======
+
         private void SendEmail(Checkout checkout, List<CartItem> cart, int orderNumber)
->>>>>>> 0ade60c529b3dcbd24c1f7598adab56fb1137e1b
+
         {
             var mail = new MailMessage("you@yourcompany.com", checkout.BillingInfo.Email);
             var client = new SmtpClient();
