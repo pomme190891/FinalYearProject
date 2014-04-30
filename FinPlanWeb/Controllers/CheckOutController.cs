@@ -80,10 +80,7 @@ namespace FinPlanWeb.Controllers
             return View();
         }
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 8583aefd2d24cdb2d787660f8eeff62eb5774b6f
         /// <summary>
         /// Get the system to send email once Direct Debit has been placed.
         /// </summary>
@@ -135,7 +132,7 @@ namespace FinPlanWeb.Controllers
         /// </summary>
         /// <param name="cart"></param>
         /// <returns></returns>
-        private string GenerateInnerOrderItem(List<CartItem> cart)
+        private string GenerateInnerOrderItem(IEnumerable<CartItem> cart)
         {
             var stringBuilder = new StringBuilder();
             foreach (var item in cart)
@@ -259,7 +256,8 @@ namespace FinPlanWeb.Controllers
                 var controller = filterContext.Controller as Controller;
                 if (controller != null)
                 {
-                    controller.TempData.Add("ReturnUrl", controller.Request.Url.AbsoluteUri); //temp data for return url
+                    if (controller.Request.Url != null)
+                        controller.TempData.Add("ReturnUrl", controller.Request.Url.AbsoluteUri); //temp data for return url
                 }
             }
             base.OnActionExecuting(filterContext);

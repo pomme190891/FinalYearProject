@@ -150,6 +150,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CheckOutController.cs" />
     <Compile Include="Controllers\OrderManagementController.cs" />
+    <Compile Include="Controllers\PromoController.cs" />
     <Compile Include="DTOs\EditUserDTO.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
@@ -329,6 +330,8 @@
     <Content Include="Views\Payment\PaymentFailed.cshtml" />
     <Content Include="Views\Shared\_Layout2.cshtml" />
     <Content Include="Views\OrderManagement\OrderHistory.cshtml" />
+    <Content Include="Views\Promo\PromotionSection.cshtml" />
+    <Content Include="Views\Product\ProductSection.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ClassLibrary1\Helpers.csproj">
@@ -341,6 +344,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Promotion\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

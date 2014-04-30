@@ -22,6 +22,11 @@ namespace FinPlanWeb.Database
             return System.Configuration.ConfigurationManager.ConnectionStrings["standard"].ConnectionString;
         }
 
+        /// <summary>
+        /// Get Promotion Codes
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
         public static Promotion GetPromotion(string code)
         {
 
@@ -56,6 +61,7 @@ namespace FinPlanWeb.Database
 
 
         }
+
 
 
 

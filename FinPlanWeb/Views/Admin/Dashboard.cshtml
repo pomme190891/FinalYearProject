@@ -21,7 +21,7 @@
                 <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="glyphicon glyphicon-user"></i>&nbsp;User Administration <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="#manageuser"><i class="glyphicon glyphicon-cog"></i>Manage Users</a></li>
-                    <li><a href="#useractivity"><i class="glyphicon glyphicon-eye-open"></i>Users Activities</a></li>
+                    <!-- <li><a href="#useractivity"><i class="glyphicon glyphicon-eye-open"></i>Users Activities</a></li> -->
                 </ul>
             </li>
         </ul>
@@ -30,6 +30,16 @@
             <div id="orderhistory" class="tab-pane fade in active">
                 @{
                     Html.RenderAction("OrderHistory", "OrderManagement");
+                }
+            </div>
+            <div id="productmanagement" class="tab-pane fade">
+                @{
+                    Html.RenderAction("ProductSection", "Product");
+                }
+            </div>
+            <div id="promomanagement" class="tab-pane fade">
+                @{
+                    Html.RenderAction("PromotionSection", "Promo");
                 }
             </div>
             <div id="manageuser" class="tab-pane fade">
@@ -226,7 +236,6 @@
                     dataType: "json",
                     success: function (result) {
                         model.users(result.users);
-                        debugger;
                         $('#page-selection').bootpag({
                             total: result.totalPage
                         }).on("page", function (event, /* page number here */ num) {
