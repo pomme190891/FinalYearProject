@@ -84,7 +84,7 @@ namespace FinPlanWeb.Controllers
 
             return Json(new
             {
-                users = UserManagement.GetAllUserList(),
+                users = ApplyPaging(UserManagement.GetAllUserList(),1),
                 passed = !validationMessage.Any(),
                 validationIds,
                 validationMessage = string.Join("</br>", validationMessage)

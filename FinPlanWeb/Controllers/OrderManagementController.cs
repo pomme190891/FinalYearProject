@@ -85,7 +85,7 @@ namespace FinPlanWeb.Controllers
             var filteredOrders = SearchFunction(null, null, null, null, orders, users, 1);
             var orderList = PopulateOrderList(filteredOrders, users);
             ViewBag.Orders = serializer.Serialize(orderList);
-            ViewBag.TotalOrdersPage = (int)Math.Ceiling(((double)orders.Count() / (double)pageSize)); ;
+            ViewBag.TotalOrdersPage = (int)Math.Ceiling(((double)orders.Count() / (double)pageSize));
             ViewBag.OrderDetail = serializer.Serialize(new OrderDetailDTO());
             return View();
         }

@@ -1,0 +1,137 @@
+﻿@{
+    Layout = "";
+}
+<div id="products">
+    <h4>Order Maintenance</h4>
+    @*    <div>
+        <input type="text" class="datepicker" data-bind="value: searchParam.from" placeholder="From" />
+        <input type="text" class="datepicker" data-bind="value: searchParam.to" placeholder="To" />
+        <input type="text" data-bind="value: searchParam.firm" placeholder="Firm" />
+        <select data-bind="value: searchParam.paymentType">
+            <option value="">All</option>
+            <option value="Paypal">Paypal</option>
+            <option value="Direct Debit">Direct Debit</option>
+        </select>
+        <button type="button" class="btn btn-primary" data-bind="click: search">Search</button>
+    </div>*@
+
+    <div id="productGrid" class="table-responsive">
+        <table class="table table-striped table-bordered table-hover" style="font-size: 11px">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Date Added</th>
+                    <th>Last Date Modified</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- ko foreach:products -->
+                <tr data-bind="click: $root.getProductDetail">
+                    <td class="col-md-1" data-bind="text: ProductId"></td>
+                    <td class="col-md-2" data-bind="text: Code"></td>
+                    <td class="col-md-2" data-bind="text: Name"></td>
+                    <td class="col-md-2" data-bind="text: DateAdded"></td>
+                    <td class="col-md-2" data-bind="text: LastModifiedDate"></td>
+                    <td class="col-md-1" data-bind="text: '£' + Price.toFixed(2)"></td>
+                    <td class="col-md-2" data-bind="text: Category"></td>
+                </tr>
+                <!-- /ko -->
+            </tbody>
+        </table>
+        <div id="page-selection-productMaintenance"></div>
+    </div>
+    <div class="modal fade" id="productDetailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Edit Product Detail</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger" data-bind="html: editValidationMessage, visible: editValidationMessage"></div>
+                    <form role="form">
+                        <div class="form-group" id="Code">
+                            <label class="control-label">Code : </label>
+                            <span data-bind="text: productDetail.Code"></span>
+                        </div>
+                        <div class="form-group" id="Name">
+                            <label class="control-label">Name: </label>
+                            <input type="text" data-bind="value: productDetail.Name" class="form-control" />
+                        </div>
+                        <div class="form-group" id="Price">
+                            <label class="control-label">Price: </label>
+                            <input type="text" data-bind="value: productDetail.Price" class="form-control" />
+                        </div>
+                        <div class="form-group" id="Category">
+                            <label class="control-label">Category: </label>
+                            <select class="form-control" data-bind="options: categories, optionsCaption: 'Choose one...', optionsValue: 'Id', optionsText: 'Name', value: productDetail.CategoryId, valueAllowUnset: false"></select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bind="click:update">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var productMaintenanceVM = {
+        products: ko.observableArray(@Html.Raw(@ViewBag.Products)),
+        categories: ko.observableArray(@Html.Raw(@ViewBag.Categories)),
+        productDetail: ko.mapping.fromJS(@Html.Raw(@ViewBag.ProductDetail)),
+        editValidationMessage: ko.observable()
+    };
+    
+    productMaintenanceVM.getProductDetail = function (data) {
+        $.get("@Url.Action("GetProductDetail", "ProductMaintenance")", {
+            productCode: data.Code
+        }, function (ret) {
+            ko.mapping.fromJS(ret.productDetail, productMaintenanceVM.productDetail);
+            $('.form-group').removeClass("has-error");
+            productMaintenanceVM.editValidationMessage(null);
+            $('#productDetailModal').modal('show');
+        });
+    };
+    
+    productMaintenanceVM.update = function () {
+        var productDetail = ko.toJS(productMaintenanceVM.productDetail);
+        $.post("@Url.Action("UpdateProduct")", productDetail, function (ret) {
+            productMaintenanceVM.editValidationMessage(null);
+            if (!ret.passed) {
+                productMaintenanceVM.editValidationMessage(ret.validationMessage);
+                $.each(ret.validationIds, function(i, id) {
+                    $('#' + id).addClass("has-error");
+                });
+            } 
+            else {
+                $('#productDetailModal').modal('hide');
+                productMaintenanceVM.products(ret.products);
+                //Update new paging
+                $('#page-selection-productMaintenance').bootpag({
+                    total: ret.totalProductPage
+                }).on("page", function (event, /* page number here */ num) {
+                    $.get("@Url.Action("Paging")", {num:num}, function(products) {
+                        productMaintenanceVM.products(products);
+                    });
+                });
+                alert('Product successfully updated.');
+            }
+        });
+    };
+    
+    ko.applyBindings(productMaintenanceVM, $('#products')[0]);
+    
+    $('#page-selection-productMaintenance').bootpag({
+        total: @ViewBag.TotalProductPage
+        }).on("page", function (event, /* page number here */ num) {
+            $.get("@Url.Action("Paging")", {num:num}, function(products) {
+                     productMaintenanceVM.products(products);
+                 });
+             });
+</script>

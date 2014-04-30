@@ -47,10 +47,5 @@ namespace FinPlanWeb.Controllers
              return Json(ProductManagement.GetProducts(type), JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult ProductSection()
-        {
-            return View();
-        }
-
     }
 }

@@ -5,6 +5,7 @@ using System.Web;
 using System.Data;
 using System.Data.SqlClient;
 using System.Net;
+using FinPlanWeb.DTOs;
 
 namespace FinPlanWeb.Database
 {
@@ -21,6 +22,7 @@ namespace FinPlanWeb.Database
         {
             get { return string.Format("{0:0.00}", Price); }
         }
+        public int CategoryId { get; set; }
     }
 
     public class ProductManagement
@@ -42,7 +44,6 @@ namespace FinPlanWeb.Database
         {
             using (var connection = new SqlConnection(GetConnection()))
             {
-
                 const string sql = @"SELECT * FROM [dbo].[products] where productCode = @c ";
                 var cmd = new SqlCommand(sql, connection);
 
@@ -62,7 +63,8 @@ namespace FinPlanWeb.Database
                          Name = reader.GetString(2),
                          AddedDate = reader.GetDateTime(3),
                          ModifiedDate = reader.IsDBNull(4) ? null : (DateTime?)reader.GetDateTime(4),
-                         Price = reader.GetSqlMoney(5).ToDouble()
+                         Price = reader.GetSqlMoney(5).ToDouble(),
+                         CategoryId = reader.GetInt32(6)
                      };
                 }
                 reader.Dispose();
@@ -81,7 +83,6 @@ namespace FinPlanWeb.Database
 
         public static IEnumerable<Product> GetProducts(ProductType type)
         {
-
             var products = new List<Product>();
             using (var connection = new SqlConnection(GetConnection()))
             {
@@ -101,7 +102,6 @@ namespace FinPlanWeb.Database
                      .Value = (int)type;
                 }
 
-
                 using (var reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
@@ -113,14 +113,31 @@ namespace FinPlanWeb.Database
                             Name = reader.GetString(2),
                             AddedDate = reader.GetDateTime(3),
                             ModifiedDate = reader.IsDBNull(4) ? null : (DateTime?)reader.GetDateTime(4),
-                            Price = reader.GetSqlMoney(5).ToDouble()
-
+                            Price = reader.GetSqlMoney(5).ToDouble(),
+                            CategoryId = reader.GetInt32(6)
                         };
 
                         products.Add(product);
                     }
                 }
                 return products;
+            }
+        }
+
+        public static void UpdateProduct(EditProductDTO product)
+        {
+            using (var connection = new SqlConnection(GetConnection()))
+            {
+                const string sql = @"UPDATE [dbo].[products] SET Description=@d, modifiedDate=@md, price=@p, categoriesID=@cid WHERE [productId] = @pid";
+                connection.Open();
+                var cmd = new SqlCommand(sql, connection);
+                cmd.Parameters.Add(new SqlParameter("@d", SqlDbType.NVarChar)).Value = product.Name;
+                cmd.Parameters.Add(new SqlParameter("@md", SqlDbType.DateTime)).Value = DateTime.Now;
+                cmd.Parameters.Add(new SqlParameter("@p", SqlDbType.Money)).Value = product.Price;
+                cmd.Parameters.Add(new SqlParameter("@cid", SqlDbType.Int)).Value = product.CategoryId;
+                cmd.Parameters.Add(new SqlParameter("@pid", SqlDbType.Int)).Value = product.Id;
+
+                cmd.ExecuteNonQuery();
             }
         }
     }
