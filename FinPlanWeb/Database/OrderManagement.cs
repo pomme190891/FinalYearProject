@@ -42,6 +42,11 @@ namespace FinPlanWeb.Database
             return System.Configuration.ConfigurationManager.ConnectionStrings["standard"].ConnectionString;
         }
 
+        /// <summary>
+        /// Get all order records with a particular id.
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <returns></returns>
         public static IEnumerable<OrderItem> GetOrderItems(int orderId)
         {
             var orderItems = new List<OrderItem>();
@@ -78,6 +83,10 @@ namespace FinPlanWeb.Database
             }
         }
 
+        /// <summary>
+        /// Get all order records.
+        /// </summary>
+        /// <returns></returns>
         public static IEnumerable<Order> GetAllOrders()
         {
             var orders = new List<Order>();
@@ -133,6 +142,13 @@ namespace FinPlanWeb.Database
             }
         }
 
+        /// <summary>
+        ///Record PayPal transaction to the database
+        /// </summary>
+        /// <param name="checkout"></param>
+        /// <param name="cart"></param>
+        /// <param name="paypalid"></param>
+        /// <param name="userid"></param>
         public static void RecordPayPalTransaction(Checkout checkout, List<CartItem> cart, string paypalid, int userid)
         {
             SqlTransaction transaction = null;
@@ -198,6 +214,13 @@ namespace FinPlanWeb.Database
 
         }
 
+        /// <summary>
+        /// Record DirectDebit Transaction to the database
+        /// </summary>
+        /// <param name="checkout"></param>
+        /// <param name="cart"></param>
+        /// <param name="userid"></param>
+        /// <param name="orderId"></param>
         public static void RecordDirectDebitTransaction(Checkout checkout, List<CartItem> cart, int userid, out int orderId)
         {
             SqlTransaction transaction = null;
@@ -227,7 +250,7 @@ namespace FinPlanWeb.Database
                 cmd.Parameters.AddWithValue("@gross", CalculateGross(cart));
                 cmd.Parameters.AddWithValue("@net", CalculateNet(cart));
                 cmd.Parameters.AddWithValue("@dateCreated", DateTime.Now);
-                cmd.Parameters.AddWithValue("@ddID", CreateDirectDebitId(17));
+                cmd.Parameters.AddWithValue("@ddID", CreateDirectDebitId(17));//generate random id.
                 orderId = (Int32)cmd.ExecuteScalar();
 
                 foreach (var item in cart)
@@ -261,6 +284,11 @@ namespace FinPlanWeb.Database
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="length"></param>
+        /// <returns></returns>
         private static string CreateDirectDebitId(int length)
         {
             var valid = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";

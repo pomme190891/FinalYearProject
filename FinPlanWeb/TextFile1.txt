@@ -5,4 +5,4 @@ Then, every time you receive new data from the server, you can update all the pr
 DTO = Data Trasfer Object
 
 
-Why use StringBuilder()?
+Why use StringBuilder()? keep adding data

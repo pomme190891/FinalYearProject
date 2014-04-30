@@ -80,7 +80,10 @@ namespace FinPlanWeb.Controllers
             return View();
         }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8583aefd2d24cdb2d787660f8eeff62eb5774b6f
         /// <summary>
         /// Get the system to send email once Direct Debit has been placed.
         /// </summary>
@@ -239,21 +242,24 @@ namespace FinPlanWeb.Controllers
         }
     }
 
-
+    /// <summary>
+    /// Called by the ASP.NET MVC framework before the action method executes.
+    /// Store user session. Use this before running the ActionResult CheckOut()
+    /// </summary>
     public class CheckUserSession : ActionFilterAttribute
     {
-        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        public override void OnActionExecuting(ActionExecutingContext filterContext) 
         {
-            var userSessoion = filterContext.RequestContext.HttpContext.Session["User"];
+            var userSessoion = filterContext.RequestContext.HttpContext.Session["User"]; //get user session
             if (userSessoion == null)
             {
                 filterContext.Result = new RedirectToRouteResult(
-            new RouteValueDictionary {{ "Controller", "Account" },
+                new RouteValueDictionary {{ "Controller", "Account" },
                                       { "Action", "Login" } });
                 var controller = filterContext.Controller as Controller;
                 if (controller != null)
                 {
-                    controller.TempData.Add("ReturnUrl", controller.Request.Url.AbsoluteUri);
+                    controller.TempData.Add("ReturnUrl", controller.Request.Url.AbsoluteUri); //temp data for return url
                 }
             }
             base.OnActionExecuting(filterContext);
