@@ -80,17 +80,15 @@ namespace FinPlanWeb.Controllers
             return View();
         }
 
-<<<<<<< HEAD
         /// <summary>
         /// Get the system to send email once Direct Debit has been placed.
         /// </summary>
         /// <param name="checkout"></param>
         /// <param name="cart"></param>
         /// <param name="orderNumber"></param>
-        private void SendEmail(Checkout checkout, List<CartItem> cart, string orderNumber = "")
-=======
+
         private void SendEmail(Checkout checkout, List<CartItem> cart, int orderNumber)
->>>>>>> 0ade60c529b3dcbd24c1f7598adab56fb1137e1b
+
         {
             var mail = new MailMessage("you@yourcompany.com", checkout.BillingInfo.Email);
             var client = new SmtpClient();
@@ -240,21 +238,24 @@ namespace FinPlanWeb.Controllers
         }
     }
 
-
+    /// <summary>
+    /// Called by the ASP.NET MVC framework before the action method executes.
+    /// Store user session. Use this before running the ActionResult CheckOut()
+    /// </summary>
     public class CheckUserSession : ActionFilterAttribute
     {
-        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        public override void OnActionExecuting(ActionExecutingContext filterContext) 
         {
-            var userSessoion = filterContext.RequestContext.HttpContext.Session["User"];
+            var userSessoion = filterContext.RequestContext.HttpContext.Session["User"]; //get user session
             if (userSessoion == null)
             {
                 filterContext.Result = new RedirectToRouteResult(
-            new RouteValueDictionary {{ "Controller", "Account" },
+                new RouteValueDictionary {{ "Controller", "Account" },
                                       { "Action", "Login" } });
                 var controller = filterContext.Controller as Controller;
                 if (controller != null)
                 {
-                    controller.TempData.Add("ReturnUrl", controller.Request.Url.AbsoluteUri);
+                    controller.TempData.Add("ReturnUrl", controller.Request.Url.AbsoluteUri); //temp data for return url
                 }
             }
             base.OnActionExecuting(filterContext);

@@ -29,7 +29,7 @@ namespace FinPlanWeb.Controllers
 
             var orderList = PopulateOrderList(filteredOrders, users);
             var totalPage = (int)Math.Ceiling(((double)orders.Count() / (double)pageSize));
-            return Json(new { orderList, totalPage }, JsonRequestBehavior.AllowGet);
+            return Json(new { orderList, totalPage }, JsonRequestBehavior.AllowGet); //Allow JSON for $.get
         }
 
 
@@ -73,7 +73,8 @@ namespace FinPlanWeb.Controllers
 
 
         /// <summary>
-        /// 
+        /// Get all the objects that convert(serilalise) into
+        /// JSON Object String 
         /// </summary>
         /// <returns></returns>
         public ActionResult OrderHistory()
@@ -91,17 +92,17 @@ namespace FinPlanWeb.Controllers
         
 
         /// <summary>
-        /// 
+        /// Return Order details that matches the orderID
         /// </summary>
         /// <param name="orderId"></param>
         /// <returns></returns>
         public ActionResult GetFullOrderDetail(int orderId)
         {
-            var order = OrderManagement.GetAllOrders().Single(x => x.Id == orderId);
+            var order = OrderManagement.GetAllOrders().Single(x => x.Id == orderId); //find a Single record that matches orderID 
             var orderItem = OrderManagement.GetOrderItems(orderId);
             var user = UserManagement.GetAllUserList().Single(x => x.Id == order.UserId);
             var products = ProductManagement.GetProducts(ProductManagement.ProductType.All)
-                .Where(x => IdInList(x.Id, orderItem.Select(o => o.ProductId).ToArray()));
+                .Where(x => IdInList(x.Id, orderItem.Select(o => o.ProductId).ToArray())); //get products within in Orderitems collection.
 
             var orderDetail = new OrderDetailDTO
                 {
@@ -136,7 +137,8 @@ namespace FinPlanWeb.Controllers
 
 
         /// <summary>
-        /// 
+        /// This method checks whether the id is in the collection of ids.
+        /// If yes, return true or another return false.
         /// </summary>
         /// <param name="id"></param>
         /// <param name="ids"></param>
@@ -190,7 +192,7 @@ namespace FinPlanWeb.Controllers
             var filteredOrders = SearchFunction(@from, to, paymentType, firm, orders, users, pageNum);
 
             var orderList = PopulateOrderList(filteredOrders, users);
-            return Json(new { orderList }, JsonRequestBehavior.AllowGet);
+            return Json(new { orderList }, JsonRequestBehavior.AllowGet); //Return JSON object.
         }
     }
 }
