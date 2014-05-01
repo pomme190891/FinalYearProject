@@ -87,7 +87,6 @@
                                     <td class="col-md-1" data-bind="text: IsAdmin"></td>
                                     <td class="col-md-3">
                                         <button type="button" class="btn btn-primary btn-xs" data-bind="click: $root.edit">Edit</button>
-                                        <button type="button" class="btn btn-danger btn-xs" data-bind="    click: $root.delete">Delete</button>
                                         <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-bind="click:$root.displayChangePasswordModal">Change Password</button>
                                     </td>
                                 </tr>
@@ -334,29 +333,6 @@
                 }
     };
 
-            model.delete = function(data) {
-                $.ajax({
-                    url: "@Url.Action("DeleteUser")",
-                    type: "POST",
-                    data: { username: data.UserName },
-                    dataType: "json",
-                    success: function (result) {
-                        model.users(result.users);
-                        alert('Delete Successfully');
-                        model.creating(false);
-                        model.editting(false);
-                        
-                        $('#page-selection').bootpag({
-                            total: result.totalUsersPage
-                        }).on("page", function (event, /* page number here */ num) {
-                            $.post("@Url.Action("Paging")", {num:num,isInactive:parseInt(model.filter())}, function(users) {
-                                model.users(users);
-                            });
-                        });
-                    }
-                });
-            };
-            
             model.displayChangePasswordModal = function(data) {
                 $('.form-group').removeClass("has-error");
                 model.changePasswordDetail.validationMessage(null),
