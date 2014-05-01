@@ -140,5 +140,50 @@ namespace FinPlanWeb.Database
                 cmd.ExecuteNonQuery();
             }
         }
+
+        public static void CreateProduct(EditProductDTO dto)
+        {
+            SqlTransaction transaction = null;
+            try
+            {
+                var con = new SqlConnection(GetConnection());
+                con.Open();
+                transaction = con.BeginTransaction();
+                var cmd = new SqlCommand
+                {
+                    Transaction = transaction,
+                    Connection = con,
+                    CommandType = CommandType.Text,
+                    CommandText =
+                        @"INSERT INTO [finplanweb].[dbo].[products]
+                           ([productCode]
+                           ,[description]
+                           ,[addedDate]
+                           ,[modifiedDate]
+                           ,[price]
+                           ,[categoriesID])" +
+                        "VALUES (@code, @name, @addedDate, @modifiedDate, @price, @categoryID)"
+                };
+                cmd.Parameters.Clear();
+                cmd.Parameters.AddWithValue("@code", dto.Code);
+                cmd.Parameters.AddWithValue("@name", dto.Name);
+                cmd.Parameters.AddWithValue("@addedDate", DateTime.Now);
+                cmd.Parameters.AddWithValue("@modifiedDate", DBNull.Value);
+                cmd.Parameters.AddWithValue("@price", dto.Price);
+                cmd.Parameters.AddWithValue("@categoryID", dto.CategoryId);
+                cmd.ExecuteNonQuery();
+                transaction.Commit();
+
+                if (con.State != ConnectionState.Closed) return;
+                con.Close();
+            }
+            catch (SqlException ex)
+            {
+                transaction.Rollback();
+                var msg = "Insert errors";
+                msg += ex.Message;
+                throw new Exception(msg);
+            }
+        }
     }
 }

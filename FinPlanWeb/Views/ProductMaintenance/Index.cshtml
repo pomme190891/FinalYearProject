@@ -3,17 +3,9 @@
 }
 <div id="products">
     <h4>Order Maintenance</h4>
-    @*    <div>
-        <input type="text" class="datepicker" data-bind="value: searchParam.from" placeholder="From" />
-        <input type="text" class="datepicker" data-bind="value: searchParam.to" placeholder="To" />
-        <input type="text" data-bind="value: searchParam.firm" placeholder="Firm" />
-        <select data-bind="value: searchParam.paymentType">
-            <option value="">All</option>
-            <option value="Paypal">Paypal</option>
-            <option value="Direct Debit">Direct Debit</option>
-        </select>
-        <button type="button" class="btn btn-primary" data-bind="click: search">Search</button>
-    </div>*@
+    <div style="margin: 10px 10px 10px 0">
+        <button type="button" class="btn btn-primary" data-bind="click: addNewProduct">Add New Product</button>
+    </div>
 
     <div id="productGrid" class="table-responsive">
         <table class="table table-striped table-bordered table-hover" style="font-size: 11px">
@@ -49,14 +41,15 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Edit Product Detail</h4>
+                    <h4 class="modal-title" id="myModalLabel" data-bind="text: productDetail.IsCreating() ? 'Create Product': 'Edit Product Detail'">Edit Product Detail</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="alert alert-danger" data-bind="html: editValidationMessage, visible: editValidationMessage"></div>
+                    <div class="alert alert-danger" data-bind="html: createUpdateValidationMessage, visible: createUpdateValidationMessage"></div>
                     <form role="form">
                         <div class="form-group" id="Code">
                             <label class="control-label">Code : </label>
-                            <span data-bind="text: productDetail.Code"></span>
+                            <span data-bind="text: productDetail.Code, visible: !productDetail.IsCreating()"></span>
+                            <input type="text" data-bind="value: productDetail.Code, visible: productDetail.IsCreating()" class="form-control" />
                         </div>
                         <div class="form-group" id="Name">
                             <label class="control-label">Name: </label>
@@ -74,7 +67,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-bind="click:update">Update</button>
+                    <button type="button" class="btn btn-primary" data-bind="click:CreateUpdateProduct,text: productDetail.IsCreating() ? 'Create': 'Update'">Update</button>
                 </div>
             </div>
         </div>
@@ -85,7 +78,7 @@
         products: ko.observableArray(@Html.Raw(@ViewBag.Products)),
         categories: ko.observableArray(@Html.Raw(@ViewBag.Categories)),
         productDetail: ko.mapping.fromJS(@Html.Raw(@ViewBag.ProductDetail)),
-        editValidationMessage: ko.observable()
+        createUpdateValidationMessage: ko.observable()
     };
     
     productMaintenanceVM.getProductDetail = function (data) {
@@ -94,17 +87,28 @@
         }, function (ret) {
             ko.mapping.fromJS(ret.productDetail, productMaintenanceVM.productDetail);
             $('.form-group').removeClass("has-error");
-            productMaintenanceVM.editValidationMessage(null);
+            productMaintenanceVM.createUpdateValidationMessage(null);
+            productMaintenanceVM.productDetail.IsCreating(false);
             $('#productDetailModal').modal('show');
         });
     };
     
-    productMaintenanceVM.update = function () {
+    productMaintenanceVM.addNewProduct = function (data) {
+        $('.form-group').removeClass("has-error");
+        productMaintenanceVM.productDetail.Code('');
+        productMaintenanceVM.productDetail.Name('');
+        productMaintenanceVM.productDetail.CategoryId(null);
+        productMaintenanceVM.productDetail.Price(0);
+        productMaintenanceVM.productDetail.IsCreating(true);
+        $('#productDetailModal').modal('show');
+    };
+    
+    productMaintenanceVM.CreateUpdateProduct = function () {
         var productDetail = ko.toJS(productMaintenanceVM.productDetail);
-        $.post("@Url.Action("UpdateProduct")", productDetail, function (ret) {
-            productMaintenanceVM.editValidationMessage(null);
+        $.post("@Url.Action("CreateUpdateProduct")", productDetail, function (ret) {
+            productMaintenanceVM.createUpdateValidationMessage(null);
             if (!ret.passed) {
-                productMaintenanceVM.editValidationMessage(ret.validationMessage);
+                productMaintenanceVM.createUpdateValidationMessage(ret.validationMessage);
                 $.each(ret.validationIds, function(i, id) {
                     $('#' + id).addClass("has-error");
                 });
@@ -120,7 +124,12 @@
                         productMaintenanceVM.products(products);
                     });
                 });
-                alert('Product successfully updated.');
+                if (productMaintenanceVM.productDetail.IsCreating()) {
+                    alert('Product successfully created.');
+                } else {
+                    alert('Product successfully updated.');
+                }
+                
             }
         });
     };
@@ -131,7 +140,7 @@
         total: @ViewBag.TotalProductPage
         }).on("page", function (event, /* page number here */ num) {
             $.get("@Url.Action("Paging")", {num:num}, function(products) {
-                     productMaintenanceVM.products(products);
-                 });
-             });
+                productMaintenanceVM.products(products);
+            });
+        });
 </script>

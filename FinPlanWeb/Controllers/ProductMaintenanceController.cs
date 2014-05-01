@@ -17,7 +17,7 @@ namespace FinPlanWeb.Controllers
             var serializer = new JavaScriptSerializer();
             var products = ProductManagement.GetProducts(ProductManagement.ProductType.All);
             var categories = CategoryManagement.GetAllCategory();
-            var productDTO = ApplyPaging(products, 1).Select(x=>ConvertToProductDTO(x, categories));
+            var productDTO = ApplyPaging(products, 1).Select(x => ConvertToProductDTO(x, categories));
 
             ViewBag.ProductDetail = serializer.Serialize(new EditProductDTO());
             ViewBag.Products = serializer.Serialize(productDTO);
@@ -56,17 +56,25 @@ namespace FinPlanWeb.Controllers
                 .Take(pageSize);
         }
 
-        public ActionResult UpdateProduct(EditProductDTO dto)
+        public ActionResult CreateUpdateProduct(EditProductDTO dto)
         {
             if (dto == null)
             {
                 throw new NullReferenceException("DTO cannot be null");
             }
             var validationIds = new List<string>();
-            var validationMessage = Validate(dto, false, out validationIds);
+            var validationMessage = Validate(dto, out validationIds);
             if (!validationMessage.Any())
             {
-                ProductManagement.UpdateProduct(dto);
+                if (dto.IsCreating)
+                {
+                    ProductManagement.CreateProduct(dto);
+                }
+                else
+                {
+                    ProductManagement.UpdateProduct(dto);
+                }
+                
                 var products = ProductManagement.GetProducts(ProductManagement.ProductType.All);
                 var categories = CategoryManagement.GetAllCategory();
                 var totalProductPage = (int)Math.Ceiling(((double)products.Count() / (double)pageSize));
@@ -80,7 +88,6 @@ namespace FinPlanWeb.Controllers
                 });
             }
 
-            
             return Json(new
             {
                 passed = !validationMessage.Any(),
@@ -98,17 +105,18 @@ namespace FinPlanWeb.Controllers
                     Name = product.Name,
                     CategoryId = product.CategoryId,
                     Code = product.Code,
-                    Price = Convert.ToDecimal(product.Price)
+                    Price = Convert.ToDecimal(product.Price),
+                    IsCreating = false
                 };
             return Json(new { productDetail }, JsonRequestBehavior.AllowGet);
         }
 
-        public List<string> Validate(EditProductDTO product, bool isCreating, out List<string> invalidIds)
+        public List<string> Validate(EditProductDTO product, out List<string> invalidIds)
         {
             var validationMessage = new List<string>();
             var validationId = new List<string>();
 
-            if (isCreating && string.IsNullOrEmpty(product.Code))
+            if (product.IsCreating && string.IsNullOrEmpty(product.Code))
             {
                 validationMessage.Add("Code is empty.");
                 validationId.Add("Code");
