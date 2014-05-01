@@ -13,6 +13,7 @@ namespace FinPlanWeb.DTOs
         public string Email { get; set; }
         public bool IsAdmin { get; set; }
         public string ConfirmPassword { get; set; }
+        public bool IsDeleted { get; set; }
 
         public UserManagement.User ToUser()
         {
@@ -25,7 +26,8 @@ namespace FinPlanWeb.DTOs
                     FirmName = FirmName,
                     Password = Password,
                     Email = Email,
-                    IsAdmin = IsAdmin
+                    IsAdmin = IsAdmin,
+                    IsDeleted = IsDeleted
                 };
         }
     }

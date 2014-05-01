@@ -73,7 +73,7 @@ namespace FinPlanWeb.Controllers
             ViewBag.TotalUsersPage = (int) Math.Ceiling(((double) allUsers.Count()/(double) pageSize));
         }
 
-        public ActionResult AddUser(EditUserDTO user)
+        public ActionResult AddUser(EditUserDTO user,int inActive)
         {
             var validationIds = new List<string>();
             var validationMessage = Validate(user, true, out validationIds);
@@ -82,11 +82,23 @@ namespace FinPlanWeb.Controllers
                 UserManagement.AddUser(user.ToUser());
             }
 
+            var users = UserManagement.GetAllUserList();
+            if (inActive == 0)
+            {
+                users = users.Where(x => x.IsDeleted == false);
+            }
+            else if (inActive == 1)
+            {
+                users = users.Where(x => x.IsDeleted);
+            }
+
+            var totalUsersPage = (int)Math.Ceiling(((double)users.Count() / (double)pageSize));
             return Json(new
             {
-                users = ApplyPaging(UserManagement.GetAllUserList(),1),
+                users = ApplyPaging(users, 1),
                 passed = !validationMessage.Any(),
                 validationIds,
+                totalUsersPage,
                 validationMessage = string.Join("</br>", validationMessage)
             });
         }
@@ -96,7 +108,7 @@ namespace FinPlanWeb.Controllers
             return View();
         }
 
-        public ActionResult UserUpdate(EditUserDTO user)
+        public ActionResult UserUpdate(EditUserDTO user, int inActive)
         {
             var validationIds = new List<string>();
             var validationMessage = Validate(user, false, out validationIds);
@@ -105,22 +117,46 @@ namespace FinPlanWeb.Controllers
                 UserManagement.UpdateUser(user.ToUser());
             }
 
+            var users = UserManagement.GetAllUserList();
+            if (inActive == 0)
+            {
+                users = users.Where(x => x.IsDeleted == false);
+            }
+            else if (inActive == 1)
+            {
+                users = users.Where(x => x.IsDeleted);
+            }
+
+            var totalUsersPage = (int)Math.Ceiling(((double)users.Count() / (double)pageSize));
             return Json(new
             {
-                users = UserManagement.GetAllUserList(),
+                users = ApplyPaging(users, 1),
                 passed = !validationMessage.Any(),
                 validationIds,
+                totalUsersPage,
                 validationMessage = string.Join("<br/>", validationMessage)
             });
         }
 
 
-        public ActionResult DeleteUser(string username)
+        public ActionResult DeleteUser(string username, int inActive)
         {
             UserManagement.DeleteUser(username);
+
+            var users = UserManagement.GetAllUserList();
+            if (inActive == 0)
+            {
+                users = users.Where(x => x.IsDeleted == false);
+            }
+            else if (inActive == 1)
+            {
+                users = users.Where(x => x.IsDeleted);
+            }
+            var totalUsersPage = (int)Math.Ceiling(((double)users.Count() / (double)pageSize));
             return Json(new
             {
-                users = UserManagement.GetAllUserList()
+                users = ApplyPaging(users, 1),
+                totalUsersPage
             });
         }
 

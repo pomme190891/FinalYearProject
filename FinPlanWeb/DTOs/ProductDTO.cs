@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace FinPlanWeb.DTOs
+﻿namespace FinPlanWeb.DTOs
 {
     public class ProductDTO
     {
@@ -14,5 +9,7 @@ namespace FinPlanWeb.DTOs
         public string LastModifiedDate { get; set; }
         public decimal Price { get; set; }
         public string Category { get; set; }
+
+        public bool Hidden { get; set; }
     }
 }

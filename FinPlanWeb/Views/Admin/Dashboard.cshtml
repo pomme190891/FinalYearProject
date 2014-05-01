@@ -15,7 +15,7 @@
 <div style="padding-top: 25px;" id="userAdministration">
     <div class="well">
         <ul class="nav nav-tabs" id="adminTab">
- 
+
             <li><a href="#orderhistory"><i class="glyphicon glyphicon-shopping-cart"></i>&nbsp;Order History</a></li>
             <li><a href="#productmaintenance"><i class="glyphicon glyphicon-shopping-cart"></i>&nbsp;Product Maintenance</a></li>
             <li class="dropdown">
@@ -62,7 +62,6 @@
                         </select>
                         <button class="btn btn-danger">Archieved Users</button>
                     </p>
-                    <div class="alert alert-danger" data-bind="html: validationMessage, visible: validationMessage"></div>
 
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered table-hover" style="font-size: 11px">
@@ -105,7 +104,7 @@
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                     <h4 class="modal-title" id="myModalLabel" data-bind="text: creating() ? 'Create a new user':'Edit user'"></h4>
                                 </div>
-                                <div class="alert alert-danger" data-bind="html: validationMessageCreate, visible: validationMessageCreate"></div>
+                                <div class="alert alert-danger" data-bind="html: validationMessageCreateUpdate, visible: validationMessageCreateUpdate"></div>
                                 <div class="modal-body">
                                     <div class="form-group" id="Username">
                                         <label class="control-label">Username</label>
@@ -139,17 +138,17 @@
                                         <label class="control-label">Privileges: </label>
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" data-bind="checked: userDetails.IsAdmin">
+                                                <input type="checkbox" value="true" data-bind="checked: userDetails.IsAdmin">
                                                 Administator
                                             </label>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label">Privileges: </label>
+                                            <label class="control-label">Hidden: </label>
 
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" data-bind="checked: userDetails.IsAdmin">
-                                                    Administator
+                                                    <input type="checkbox" value="true" data-bind="checked: userDetails.IsDeleted">
+                                                    Hidden
                                                 </label>
                                             </div>
                                         </div>
@@ -203,6 +202,7 @@
             AddedDate: ko.observable(new Date()),
             Email: ko.observable(),
             IsAdmin: ko.observable(),
+            IsDeleted: ko.observable(),
             ConfirmPassword : ko.observable()
         },
         changePasswordDetail: {
@@ -216,7 +216,7 @@
         creating: ko.observable(false),
         deleting: ko.observable(false),
         validationMessage: ko.observable(null),
-        validationMessageCreate: ko.observable(null),
+        validationMessageCreateUpdate: ko.observable(null),
         filter: ko.observable("3")
     };
 
@@ -231,76 +231,108 @@
     model.filter.subscribe(function(value) {
         $.ajax({
             url: "@Url.Action("Filter")",
-                    type: "POST",
-                    data: { isInactive: parseInt(value) },
-                    dataType: "json",
-                    success: function (result) {
-                        model.users(result.users);
-                        $('#page-selection').bootpag({
-                            total: result.totalPage
-                        }).on("page", function (event, /* page number here */ num) {
-                            $.post("@Url.Action("Paging")", {num:num,isInactive:parseInt(value)}, function(users) {
-                                model.users(users);
-                            });
-                        });
-                    }
+            type: "POST",
+            data: { isInactive: parseInt(value) },
+            dataType: "json",
+            success: function (result) {
+                model.users(result.users);
+                $('#page-selection').bootpag({
+                    total: result.totalPage
+                }).on("page", function (event, /* page number here */ num) {
+                    $.post("@Url.Action("Paging")", {num:num,isInactive:parseInt(value)}, function(users) {
+                        model.users(users);
+                    });
                 });
+            }
+        });
+    });
+
+    model.edit = function(data) {
+        model.creating(false);
+        model.editting(true);
+        model.validationMessage(null);
+        model.validationMessageCreateUpdate(null);
+        $('.form-group').removeClass("has-error");
+        model.userDetails.UserName(data.UserName);
+        model.userDetails.Password("***********");
+        model.userDetails.FirstName(data.FirstName);
+        model.userDetails.SurName(data.SurName);
+        model.userDetails.FirmName(data.FirmName);
+        model.userDetails.Email(data.Email);
+        model.userDetails.IsAdmin(data.IsAdmin);
+        model.userDetails.IsDeleted(data.IsDeleted);
+        $('#myModal').modal('show');
+    };
+
+
+    model.save = function(data) {
+        $('.form-group').removeClass("has-error");
+        if (model.editting()) {
+            $.ajax({
+                url: "@Url.Action("UserUpdate")",
+                type: "POST",
+                data: JSON.stringify({ user: ko.toJS(data.userDetails), inActive: parseInt(model.filter()) }),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (result) {
+                    if (!result.passed) {
+                        model.validationMessageCreateUpdate(result.validationMessage);
+                        $.each(result.validationIds, function(i, id) {
+                            $('#' + id).addClass("has-error");
+                        });
+                    } else {
+                        model.users(result.users);
+                        alert('Update successfully.');
+                        model.creating(false);
+                        model.editting(false);
+                        model.deleting(false);
+                        model.clearUserDetails();
+                        $('#myModal').modal('hide');
+                        $('#page-selection').bootpag({
+                            total: result.totalUsersPage
+                        }).on("page", function (event, /* page number here */ num) {
+                            $.post("@Url.Action("Paging")", {num:num,isInactive:parseInt(model.filter())}, function(users) {
+                                        model.users(users);
+                                    });
+                                });
+                            }
+                        }
             });
 
-            model.edit = function(data) {
-                model.creating(false);
-                model.editting(true);
-                model.validationMessage(null);
-                model.validationMessageCreate(null);
-                $('.form-group').removeClass("has-error");
-                model.userDetails.UserName(data.UserName);
-                model.userDetails.Password("***********");
-                model.userDetails.FirstName(data.FirstName);
-                model.userDetails.SurName(data.SurName);
-                model.userDetails.FirmName(data.FirmName);
-                model.userDetails.Email(data.Email);
-                model.userDetails.IsAdmin(data.IsAdmin);
-                $('#myModal').modal('show');
-            };
-
-
-            model.save = function(data) {
-                if (model.editting()) {
-                    $.post("@Url.Action("UserUpdate")", ko.toJS(data.userDetails), function (result) {
-                        if (!result.passed) {
-                            model.validationMessage(result.validationMessage);
-                            $.each(result.validationIds, function(i, id) {
-                                $('#' + id).addClass("has-error");
-                            });
-                        } else {
-                            model.users(result.users);
-                            alert('Update successfully.');
-                            model.creating(false);
-                            model.editting(false);
-                            model.deleting(false);
-                            model.clearUserDetails();
-                            $('#myModal').modal('hide');
-                        }
-                    });
                 } else {
-                    $.post("@Url.Action("AddUser")",ko.toJS(data.userDetails), function (result) {
-                        if (!result.passed) {
-                            model.validationMessageCreate(result.validationMessage);
-                            $.each(result.validationIds, function(i, id) {
-                                $('#' + id).addClass("has-error");
-                            });
-                        } else {
-                            model.users(result.users);
-                            alert('Save successfully.');
-                            model.creating(false);
-                            model.editting(false);
-                            model.deleting(false);
-                            model.clearUserDetails();
-                            $('#myModal').modal('hide');
+                    $.ajax({
+                        url: "@Url.Action("AddUser")",
+                        type: "POST",
+                        data: JSON.stringify({ user: ko.toJS(data.userDetails), inActive: parseInt(model.filter()) }),
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        success: function (result) {
+                            if (!result.passed) {
+                                model.validationMessageCreateUpdate(result.validationMessage);
+                                $.each(result.validationIds, function(i, id) {
+                                    $('#' + id).addClass("has-error");
+                                });
+                            } else {
+                                model.users(result.users);
+                                alert('Save successfully.');
+                                model.creating(false);
+                                model.editting(false);
+                                model.deleting(false);
+                                model.clearUserDetails();
+                                $('#myModal').modal('hide');
+                                
+                                $('#page-selection').bootpag({
+                                    total: result.totalUsersPage
+                                }).on("page", function (event, /* page number here */ num) {
+                                    $.post("@Url.Action("Paging")", {num:num,isInactive:parseInt(model.filter())}, function(users) {
+                                        model.users(users);
+                                    });
+                                });
+                            }
                         }
                     });
                 }
-            };
+    };
 
             model.delete = function(data) {
                 $.ajax({
@@ -313,6 +345,14 @@
                         alert('Delete Successfully');
                         model.creating(false);
                         model.editting(false);
+                        
+                        $('#page-selection').bootpag({
+                            total: result.totalUsersPage
+                        }).on("page", function (event, /* page number here */ num) {
+                            $.post("@Url.Action("Paging")", {num:num,isInactive:parseInt(model.filter())}, function(users) {
+                                model.users(users);
+                            });
+                        });
                     }
                 });
             };
@@ -351,16 +391,17 @@
                 model.userDetails.SurName("");
                 model.userDetails.FirmName("");
                 model.userDetails.Email("");
-                model.userDetails.IsAdmin("");
+                model.userDetails.IsAdmin(false);
+                model.userDetails.IsDeleted(false);
                 model.validationMessage(null);
-                model.validationMessageCreate(null);
+                model.validationMessageCreateUpdate(null);
                 model.userDetails.ConfirmPassword("");
             };
 
             $('#page-selection').bootpag({
                 total: @ViewBag.TotalUsersPage
-                }).on("page", function (event, /* page number here */ num) {
-                    $.post("@Url.Action("Paging")", {num:num,isInactive:parseInt(model.filter())}, function(users) {
+                              }).on("page", function (event, /* page number here */ num) {
+                                  $.post("@Url.Action("Paging")", {num:num,isInactive:parseInt(model.filter())}, function(users) {
                         model.users(users);
                     });
                 });

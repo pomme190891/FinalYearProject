@@ -295,7 +295,7 @@ namespace FinPlanWeb.Database
             using (var connection = new SqlConnection(GetConnection()))
             {
 
-                const string sql = @"UPDATE [dbo].[users] SET Firstname=@f, Surname=@s, Firm=@fn, Email=@e, isAdmin=@i WHERE [Username] = @u";
+                const string sql = @"UPDATE [dbo].[users] SET Firstname=@f, Surname=@s, Firm=@fn, Email=@e, isAdmin=@i,deleted=@d WHERE [Username] = @u";
                 connection.Open();
                 var cmd = new SqlCommand(sql, connection);
                 cmd.Parameters.Add(new SqlParameter("@u", SqlDbType.NVarChar)).Value = user.UserName;
@@ -304,6 +304,7 @@ namespace FinPlanWeb.Database
                 cmd.Parameters.Add(new SqlParameter("@fn", SqlDbType.NVarChar)).Value = user.FirmName;
                 cmd.Parameters.Add(new SqlParameter("@e", SqlDbType.NVarChar)).Value = user.Email;
                 cmd.Parameters.Add(new SqlParameter("@i", SqlDbType.Bit)).Value = user.IsAdmin;
+                cmd.Parameters.Add(new SqlParameter("@d", SqlDbType.Bit)).Value = user.IsDeleted;
 
                 cmd.ExecuteNonQuery();
             }

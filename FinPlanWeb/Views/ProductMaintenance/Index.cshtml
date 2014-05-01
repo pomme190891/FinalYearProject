@@ -1,6 +1,11 @@
 ﻿@{
     Layout = "";
 }
+<style type="text/css">
+    #productGrid table tbody tr:hover {
+        cursor: pointer;
+    }
+</style>
 <div id="products">
     <h4>Order Maintenance</h4>
     <div style="margin: 10px 10px 10px 0">
@@ -43,27 +48,36 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="myModalLabel" data-bind="text: productDetail.IsCreating() ? 'Create Product': 'Edit Product Detail'">Edit Product Detail</h4>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body ">
                     <div class="alert alert-danger" data-bind="html: createUpdateValidationMessage, visible: createUpdateValidationMessage"></div>
-                    <form role="form">
-                        <div class="form-group" id="Code">
-                            <label class="control-label">Code : </label>
-                            <span data-bind="text: productDetail.Code, visible: !productDetail.IsCreating()"></span>
-                            <input type="text" data-bind="value: productDetail.Code, visible: productDetail.IsCreating()" class="form-control" />
+
+                    <div class="form-group" id="Code">
+                        <label class="control-label">Code : </label>
+                        <span data-bind="text: productDetail.Code, visible: !productDetail.IsCreating()"></span>
+                        <input type="text" data-bind="value: productDetail.Code, visible: productDetail.IsCreating()" class="form-control" />
+                    </div>
+                    <div class="form-group" id="Name">
+                        <label class="control-label">Name: </label>
+                        <input type="text" data-bind="value: productDetail.Name" class="form-control" />
+                    </div>
+                    <div class="form-group" id="Price">
+                        <label class="control-label">Price: </label>
+                        <input type="text" data-bind="value: productDetail.Price" class="form-control" />
+                    </div>
+                    <div class="form-group" id="Category">
+                        <label class="control-label">Category: </label>
+                        <select class="form-control" data-bind="options: categories, optionsCaption: 'Choose one...', optionsValue: 'Id', optionsText: 'Name', value: productDetail.CategoryId, valueAllowUnset: false"></select>
+                    </div>
+
+                    <div id="Hidden" data-bind="visible: !productDetail.IsCreating()">
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" value="true" data-bind="checked: productDetail.Hidden" />
+                                Hidden
+                            </label>
                         </div>
-                        <div class="form-group" id="Name">
-                            <label class="control-label">Name: </label>
-                            <input type="text" data-bind="value: productDetail.Name" class="form-control" />
-                        </div>
-                        <div class="form-group" id="Price">
-                            <label class="control-label">Price: </label>
-                            <input type="text" data-bind="value: productDetail.Price" class="form-control" />
-                        </div>
-                        <div class="form-group" id="Category">
-                            <label class="control-label">Category: </label>
-                            <select class="form-control" data-bind="options: categories, optionsCaption: 'Choose one...', optionsValue: 'Id', optionsText: 'Name', value: productDetail.CategoryId, valueAllowUnset: false"></select>
-                        </div>
-                    </form>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -97,6 +111,7 @@
         $('.form-group').removeClass("has-error");
         productMaintenanceVM.productDetail.Code('');
         productMaintenanceVM.productDetail.Name('');
+        productMaintenanceVM.productDetail.Hidden(false);
         productMaintenanceVM.productDetail.CategoryId(null);
         productMaintenanceVM.productDetail.Price(0);
         productMaintenanceVM.productDetail.IsCreating(true);

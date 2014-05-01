@@ -23,6 +23,8 @@ namespace FinPlanWeb.Database
             get { return string.Format("{0:0.00}", Price); }
         }
         public int CategoryId { get; set; }
+
+        public bool Hidden { get; set; }
     }
 
     public class ProductManagement
@@ -64,7 +66,8 @@ namespace FinPlanWeb.Database
                          AddedDate = reader.GetDateTime(3),
                          ModifiedDate = reader.IsDBNull(4) ? null : (DateTime?)reader.GetDateTime(4),
                          Price = reader.GetSqlMoney(5).ToDouble(),
-                         CategoryId = reader.GetInt32(6)
+                         CategoryId = reader.GetInt32(6),
+                         Hidden = reader.GetBoolean(7)
                      };
                 }
                 reader.Dispose();
@@ -73,6 +76,39 @@ namespace FinPlanWeb.Database
             }
         }
 
+
+        public static IEnumerable<Product> GetProductsIncludeHidden()
+        {
+            var products = new List<Product>();
+            using (var connection = new SqlConnection(GetConnection()))
+            {
+
+                var sql = @"SELECT * FROM [dbo].[products]";
+                var cmd = new SqlCommand(sql, connection);
+
+                connection.Open();
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var product = new Product
+                        {
+                            Id = reader.GetInt32(0),
+                            Code = reader.GetString(1),
+                            Name = reader.GetString(2),
+                            AddedDate = reader.GetDateTime(3),
+                            ModifiedDate = reader.IsDBNull(4) ? null : (DateTime?)reader.GetDateTime(4),
+                            Price = reader.GetSqlMoney(5).ToDouble(),
+                            CategoryId = reader.GetInt32(6),
+                            Hidden = reader.GetBoolean(7)
+                        };
+
+                        products.Add(product);
+                    }
+                }
+                return products;
+            }
+        }
 
 
         /// <summary>
@@ -87,10 +123,10 @@ namespace FinPlanWeb.Database
             using (var connection = new SqlConnection(GetConnection()))
             {
 
-                var sql = @"SELECT * FROM [dbo].[products]";
+                var sql = @"SELECT * FROM [dbo].[products] WHERE hidden = 0";
                 if (type != ProductType.All)
                 {
-                    sql += " WHERE categoriesID = @t";
+                    sql += " AND categoriesID = @t";
                 }
                 var cmd = new SqlCommand(sql, connection);
 
@@ -128,15 +164,15 @@ namespace FinPlanWeb.Database
         {
             using (var connection = new SqlConnection(GetConnection()))
             {
-                const string sql = @"UPDATE [dbo].[products] SET Description=@d, modifiedDate=@md, price=@p, categoriesID=@cid WHERE [productId] = @pid";
+                const string sql = @"UPDATE [dbo].[products] SET Description=@d, modifiedDate=@md, price=@p, categoriesID=@cid, hidden=@hide WHERE [productId] = @pid";
                 connection.Open();
                 var cmd = new SqlCommand(sql, connection);
                 cmd.Parameters.Add(new SqlParameter("@d", SqlDbType.NVarChar)).Value = product.Name;
                 cmd.Parameters.Add(new SqlParameter("@md", SqlDbType.DateTime)).Value = DateTime.Now;
                 cmd.Parameters.Add(new SqlParameter("@p", SqlDbType.Money)).Value = product.Price;
                 cmd.Parameters.Add(new SqlParameter("@cid", SqlDbType.Int)).Value = product.CategoryId;
+                cmd.Parameters.Add(new SqlParameter("@hide", SqlDbType.Bit)).Value = product.Hidden;
                 cmd.Parameters.Add(new SqlParameter("@pid", SqlDbType.Int)).Value = product.Id;
-
                 cmd.ExecuteNonQuery();
             }
         }
@@ -161,8 +197,9 @@ namespace FinPlanWeb.Database
                            ,[addedDate]
                            ,[modifiedDate]
                            ,[price]
-                           ,[categoriesID])" +
-                        "VALUES (@code, @name, @addedDate, @modifiedDate, @price, @categoryID)"
+                           ,[categoriesID]
+                           ,[hidden])" +
+                        "VALUES (@code, @name, @addedDate, @modifiedDate, @price, @categoryID,0)"
                 };
                 cmd.Parameters.Clear();
                 cmd.Parameters.AddWithValue("@code", dto.Code);

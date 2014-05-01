@@ -15,7 +15,7 @@ namespace FinPlanWeb.Controllers
         public ActionResult Index()
         {
             var serializer = new JavaScriptSerializer();
-            var products = ProductManagement.GetProducts(ProductManagement.ProductType.All);
+            var products = ProductManagement.GetProductsIncludeHidden();
             var categories = CategoryManagement.GetAllCategory();
             var productDTO = ApplyPaging(products, 1).Select(x => ConvertToProductDTO(x, categories));
 
@@ -28,7 +28,7 @@ namespace FinPlanWeb.Controllers
 
         public ActionResult Paging(int num)
         {
-            var list = ProductManagement.GetProducts(ProductManagement.ProductType.All);
+            var list = ProductManagement.GetProductsIncludeHidden();
             var categories = CategoryManagement.GetAllCategory();
             var products = ApplyPaging(list, num).Select(x => ConvertToProductDTO(x, categories));
 
@@ -46,7 +46,8 @@ namespace FinPlanWeb.Controllers
                     LastModifiedDate =
                         product.ModifiedDate == null ? "" : product.ModifiedDate.Value.ToString("dd/MM/yyyy"),
                     Price = Convert.ToDecimal(product.Price),
-                    Category = categories.Single(c => c.Id == product.CategoryId).Name
+                    Category = categories.Single(c => c.Id == product.CategoryId).Name,
+                    Hidden = product.Hidden
                 };
         }
 
@@ -75,7 +76,7 @@ namespace FinPlanWeb.Controllers
                     ProductManagement.UpdateProduct(dto);
                 }
                 
-                var products = ProductManagement.GetProducts(ProductManagement.ProductType.All);
+                var products = ProductManagement.GetProductsIncludeHidden();
                 var categories = CategoryManagement.GetAllCategory();
                 var totalProductPage = (int)Math.Ceiling(((double)products.Count() / (double)pageSize));
                 return Json(new
@@ -106,7 +107,8 @@ namespace FinPlanWeb.Controllers
                     CategoryId = product.CategoryId,
                     Code = product.Code,
                     Price = Convert.ToDecimal(product.Price),
-                    IsCreating = false
+                    IsCreating = false,
+                    Hidden = product.Hidden
                 };
             return Json(new { productDetail }, JsonRequestBehavior.AllowGet);
         }
