@@ -18,6 +18,7 @@
 
             <li><a href="#orderhistory"><i class="glyphicon glyphicon-shopping-cart"></i>&nbsp;Order History</a></li>
             <li><a href="#productmaintenance"><i class="glyphicon glyphicon-shopping-cart"></i>&nbsp;Product Maintenance</a></li>
+            <li><a href="#promotionmaintenance"><i class="glyphicon glyphicon-shopping-cart"></i>&nbsp;Promotion Maintenance</a></li>
             <li class="dropdown">
                 <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="glyphicon glyphicon-user"></i>&nbsp;User Administration <b class="caret"></b></a>
                 <ul class="dropdown-menu">
@@ -27,7 +28,7 @@
             </li>
         </ul>
         <div class="tab-content">
-            <div id="orderhistory" class="tab-pane fade in active">
+            <div id="orderhistory" class="tab-pane fade">
                 @{
                     Html.RenderAction("OrderHistory", "OrderManagement");
                 }
@@ -37,12 +38,12 @@
                     Html.RenderAction("Index", "ProductMaintenance");
                 }
             </div>
-            <div id="promomanagement" class="tab-pane fade">
+            <div id="promotionmaintenance" class="tab-pane fade">
                 @{
-                    Html.RenderAction("PromotionSection", "Promo");
+                    Html.RenderAction("PromotionSection", "PromoMaintenance");
                 }
             </div>
-            <div id="manageuser" class="tab-pane fade">
+            <div id="manageuser" class="tab-pane fade active in">
                 <div id="usertable">
                     <h4>User Management</h4>
                     <p>
@@ -73,6 +74,7 @@
                                     <th>Firmname</th>
                                     <th>Email</th>
                                     <th>Administrator</th>
+                                    <th>Status</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -84,8 +86,9 @@
                                     <td class="col-md-1" data-bind="text: SurName"></td>
                                     <td class="col-md-3" data-bind="text: FirmName"></td>
                                     <td class="col-md-2" data-bind="text: Email"></td>
-                                    <td class="col-md-1" data-bind="text: IsAdmin"></td>
-                                    <td class="col-md-3">
+                                    <td class="col-md-1" data-bind="text: IsAdmin ? 'Yes' : 'No'"></td>
+                                    <td class="col-md-1" data-bind="text: IsDeleted? 'Inactive': 'Active'"></td>
+                                    <td class="col-md-2">
                                         <button type="button" class="btn btn-primary btn-xs" data-bind="click: $root.edit">Edit</button>
                                         <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-bind="click:$root.displayChangePasswordModal">Change Password</button>
                                     </td>

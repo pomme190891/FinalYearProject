@@ -1,0 +1,153 @@
+﻿@{
+    Layout = "";
+}
+
+<style type="text/css">
+    #promoGrid table tbody tr:hover
+    {
+        cursor: pointer;
+    }
+</style>
+
+<div id="promotionSection">
+    <h4>Promotion Maintenance</h4>
+    <div style="margin: 10px 10px 10px 0">
+        <button type="button" class="btn btn-primary" data-bind="click: addNewPromotion">Add Promotion</button>
+    </div>
+
+    <div id="promoGrid" class="table-responsive">
+        <table class="table table-striped table-bordered table-hover" style="font-size: 11px">
+            <thead>
+                <tr>
+                    <th>Code ID</th>
+                    <th>Discount Rate</th>
+                    <th>Discount Price</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- ko foreach:promotions -->
+                <tr data-bind="click: $root.getPromotionDetail">
+                    <td class="col-md-1" data-bind="text: CodeId"></td>
+                    <td class="col-md-1" data-bind="text: Rate + '%'"></td>
+                    <td class="col-md-1" data-bind="text: Price.toFixed(2)"></td>
+                    <td class="col-md-2" data-bind="text: Hidden ? 'Inactive' : 'Active'"></td>
+
+                </tr>
+                <!-- /ko -->
+            </tbody>
+        </table>
+        <div id="page-selection-promotion"></div>
+    </div>
+    <div class="modal fade" id="promotionDetailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel" data-bind="text: promotionDetail.IsCreating() ? 'Create Promotion' : 'Edit Promotion Detail'">Edit Product Detail</h4>
+                </div>
+                <div class="modal-body ">
+                    <div class="alert alert-danger" data-bind="html: createUpdateValidationMessage, visible: createUpdateValidationMessage"></div>
+
+                    <div class="form-group" id="PromotionCodeId">
+                        <label class="control-label">Code : </label>
+                        <span data-bind="text: promotionDetail.CodeId, visible: !promotionDetail.IsCreating()"></span>
+                        <input type="text" data-bind="value: promotionDetail.CodeId, visible: promotionDetail.IsCreating()" class="form-control" />
+                    </div>
+                    <div class="form-group" id="PromotionPrice">
+                        <label class="control-label">Price: </label>
+                        <input type="text" data-bind="value: promotionDetail.Price" class="form-control" />
+                    </div>
+                    <div class="form-group" id="PromotionRate">
+                        <label class="control-label">Rate (%): </label>
+                        <input type="text" data-bind="value: promotionDetail.Rate" class="form-control" />
+                    </div>
+                    <div id="Hidden" data-bind="visible: !promotionDetail.IsCreating()">
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" value="true" data-bind="checked: promotionDetail.Hidden" />
+                                Hidden
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bind="click: CreateUpdatePromotion, text: promotionDetail.IsCreating() ? 'Create' : 'Update'"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var promoMaintenanceVM = {
+        promotions: ko.observableArray(@Html.Raw(@ViewBag.Promotions)),
+        promotionDetail: ko.mapping.fromJS(@Html.Raw(@ViewBag.PromotionDetail)),
+        createUpdateValidationMessage: ko.observable()
+    };
+    
+    promoMaintenanceVM.getPromotionDetail = function (data) {
+        $.get("@Url.Action("GetPromotionDetail", "PromoMaintenance")", {
+            promotionCode: data.CodeId
+        }, function (ret) {
+            ko.mapping.fromJS(ret.promotionDetail, promoMaintenanceVM.promotionDetail);
+            $('.form-group').removeClass("has-error");
+            promoMaintenanceVM.createUpdateValidationMessage(null);
+            promoMaintenanceVM.promotionDetail.IsCreating(false);
+            $('#promotionDetailModal').modal('show');
+        });
+    };
+    
+    promoMaintenanceVM.addNewPromotion = function (data) {
+        $('.form-group').removeClass("has-error");
+        
+        promoMaintenanceVM.promotionDetail.CodeId('');
+        promoMaintenanceVM.promotionDetail.Rate(0);
+        promoMaintenanceVM.promotionDetail.Price(0);
+        promoMaintenanceVM.promotionDetail.IsCreating(true);
+        $('#promotionDetailModal').modal('show');
+    };
+    
+    promoMaintenanceVM.CreateUpdatePromotion = function () {
+        var promotionDetail = ko.toJS(promoMaintenanceVM.promotionDetail);
+        $.post("@Url.Action("CreateUpdatePromotion")", promotionDetail, function (ret) {
+            promoMaintenanceVM.createUpdateValidationMessage(null);
+            if (!ret.passed) {
+                promoMaintenanceVM.createUpdateValidationMessage(ret.validationMessage);
+     
+                $.each(ret.validationIds, function(i, id) {
+                    $('#' + id).addClass("has-error");
+                });
+            } 
+            else {
+                $('#promotionDetailModal').modal('hide');
+                promoMaintenanceVM.promotions(ret.promotions);
+                //Update new paging
+                $('#page-selection-promotion').bootpag({
+                    total: ret.totalProductPage
+                }).on("page", function (event, /* page number here */ num) {
+                    $.get("@Url.Action("Paging")", {num:num}, function(products) {
+                        promoMaintenanceVM.products(products);
+                    });
+                });
+                if (promoMaintenanceVM.promotionDetail.IsCreating()) {
+                    alert('Promotion successfully created.');
+                } else {
+                    alert('Promotion successfully updated.');
+                }
+                
+            }
+        });
+    };
+    
+    ko.applyBindings(promoMaintenanceVM, $('#promotionSection')[0]);
+    
+    $('#page-selection-promotion').bootpag({
+        total: @ViewBag.TotalPromotionPage
+        }).on("page", function (event, /* page number here */ num) {
+            $.get("@Url.Action("Paging")", {num:num}, function(promotions) {
+                promoMaintenanceVM.promotions(promotions);
+            });
+        });
+</script>

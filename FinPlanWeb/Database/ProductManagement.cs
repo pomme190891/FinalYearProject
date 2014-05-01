@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Data;
 using System.Data.SqlClient;
-using System.Net;
 using FinPlanWeb.DTOs;
 
 namespace FinPlanWeb.Database
@@ -27,13 +24,8 @@ namespace FinPlanWeb.Database
         public bool Hidden { get; set; }
     }
 
-    public class ProductManagement
+    public class ProductManagement : DatabaseManagement
     {
-        public static string GetConnection()
-        {
-            return System.Configuration.ConfigurationManager.ConnectionStrings["standard"].ConnectionString;
-        }
-
         public enum ProductType
         {
             All = 0,

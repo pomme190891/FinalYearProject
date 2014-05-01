@@ -34,7 +34,7 @@ namespace FinPlanWeb.Controllers
         /// <returns></returns>
         public ActionResult GetPromotionInfo(string id)
         {
-            var promotion = PromoManagement.GetPromotion(id);
+            var promotion = PromoManagement.GetActivePromotion(id);
             return Json(new { isValid = promotion != null, promotion });
         }
 

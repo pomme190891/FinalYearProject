@@ -8,7 +8,7 @@ using FinPlanWeb.Models;
 
 namespace FinPlanWeb.Database
 {
-    public class OrderManagement
+    public class OrderManagement : DatabaseManagement
     {
         public class OrderItem
         {
@@ -35,11 +35,6 @@ namespace FinPlanWeb.Database
             public string CodeId { get; set; }
 
             public string PaymentType { get; set; }
-        }
-
-        public static string GetConnection()
-        {
-            return System.Configuration.ConfigurationManager.ConnectionStrings["standard"].ConnectionString;
         }
 
         /// <summary>

@@ -7,7 +7,7 @@ using System.Net;
 
 namespace FinPlanWeb.Database
 {
-    public class UserManagement
+    public class UserManagement : DatabaseManagement
     {
         public class User
         {
@@ -24,15 +24,6 @@ namespace FinPlanWeb.Database
             public string IpLog { get; set; }
             public DateTime? ModifiedDate { get; set; }
             public bool IsDeleted { get; set; }
-        }
-
-
-        /// This part checks if the user with password is existing within the database 
-        /// Taking the input of email address and password
-        /// return if the data is existed or not
-        public static string GetConnection()
-        {
-            return System.Configuration.ConfigurationManager.ConnectionStrings["standard"].ConnectionString;
         }
 
         /// <summary>

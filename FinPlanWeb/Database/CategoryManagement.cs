@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 
 namespace FinPlanWeb.Database
 {
-    public class CategoryManagement
+    public class CategoryManagement : DatabaseManagement
     {
         public class Category
         {
@@ -12,11 +12,6 @@ namespace FinPlanWeb.Database
             public string Name { get; set; }
             public DateTime DateAdded { get; set; }
             public DateTime? LastModifiedDate { get; set; }
-        }
-
-        public static string GetConnection()
-        {
-            return System.Configuration.ConfigurationManager.ConnectionStrings["standard"].ConnectionString;
         }
 
         public static IEnumerable<Category> GetAllCategory()

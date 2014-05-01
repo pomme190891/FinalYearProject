@@ -7,7 +7,7 @@
     }
 </style>
 <div id="products">
-    <h4>Order Maintenance</h4>
+    <h4>Product Maintenance</h4>
     <div style="margin: 10px 10px 10px 0">
         <button type="button" class="btn btn-primary" data-bind="click: addNewProduct">Add New Product</button>
     </div>
@@ -23,6 +23,7 @@
                     <th>Last Date Modified</th>
                     <th>Price</th>
                     <th>Category</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,10 +32,11 @@
                     <td class="col-md-1" data-bind="text: ProductId"></td>
                     <td class="col-md-2" data-bind="text: Code"></td>
                     <td class="col-md-2" data-bind="text: Name"></td>
-                    <td class="col-md-2" data-bind="text: DateAdded"></td>
-                    <td class="col-md-2" data-bind="text: LastModifiedDate"></td>
+                    <td class="col-md-1" data-bind="text: DateAdded"></td>
+                    <td class="col-md-1" data-bind="text: LastModifiedDate"></td>
                     <td class="col-md-1" data-bind="text: '£' + Price.toFixed(2)"></td>
                     <td class="col-md-2" data-bind="text: Category"></td>
+                    <td class="col-md-2" data-bind="text: Hidden ? 'Inactive' : 'Active'"></td>
                 </tr>
                 <!-- /ko -->
             </tbody>
@@ -81,7 +83,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-bind="click:CreateUpdateProduct,text: productDetail.IsCreating() ? 'Create': 'Update'">Update</button>
+                    <button type="button" class="btn btn-primary" data-bind="click:CreateUpdateProduct,text: productDetail.IsCreating() ? 'Create': 'Update'"></button>
                 </div>
             </div>
         </div>
