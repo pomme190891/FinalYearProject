@@ -202,7 +202,7 @@ namespace FinPlanWeb.Controllers
             invalidIds = validationId;
             return validationMessage;
         }
-
+        
         public List<string> Validate(EditUserDTO user, bool isCreating, out List<string> invalidIds)
         {
             var validationMessage = new List<string>();

@@ -81,11 +81,6 @@
     </div>
 </div>
 
-
-
-
-
-
 <script type="text/javascript">
     var shoppingCartViewModel = {
         cart: ko.observableArray(@Html.Raw(@ViewBag.ShoppingCart))
@@ -99,11 +94,13 @@
     shoppingCartViewModel.updateCart = function (data) {
         $.post("@Url.Action("UpdateCart")", { code: data.Code, quantity: data.Quantity }, function (result) {
             shoppingCartViewModel.cart(result);
+            $(document).trigger('notifySuccess', data.Name + ' has been updated.');
         });
     };
     shoppingCartViewModel.deleteCartItem = function (data) {
         $.post("@Url.Action("DeleteCartItem")", { code: data.Code }, function (result) {
             shoppingCartViewModel.cart(result);
+            $(document).trigger('notifySuccess', data.Name + ' has been deleted.');
         });
     };
     shoppingCartViewModel.subTotalPrice = ko.computed(function () {

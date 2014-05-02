@@ -132,11 +132,10 @@
                     });
                 });
                 if (promoMaintenanceVM.promotionDetail.IsCreating()) {
-                    alert('Promotion successfully created.');
+                    $(document).trigger('notifySuccess', 'Promotion successfully created.');
                 } else {
-                    alert('Promotion successfully updated.');
+                    $(document).trigger('notifySuccess', 'Promotion successfully updated.');
                 }
-                
             }
         });
     };

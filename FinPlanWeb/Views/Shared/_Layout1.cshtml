@@ -84,6 +84,7 @@
     <script src="@Url.Content("~/Scripts/knockout.mapping.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/bootpag.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/bootstrapValidator.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.noty.js")" type="text/javascript"></script>
         @Scripts.Render("~/bundles/bootstrapjs")
 </head>
 
@@ -121,7 +122,7 @@
                     @if (Request.IsAuthenticated)
                     {
                         <li>
-                            <a href="#">My Account</a>
+                            <a href="@Url.Action("AccountInfo","Account")">My Account</a>
                         </li>
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" role="button" href="#"><i class="glyphicon glyphicon-user"></i></a>
@@ -205,6 +206,12 @@
             return this.href == url;
         }).parent().addClass('active');
 
+        $(document).on("notifySuccess", function (e, text) {
+            var n = noty({ text: text, layout: 'bottomLeft', type: 'success', timeout: false });
+            setTimeout(function () {
+                $.noty.close(n.options.id);
+            }, 5000);
+        });
     </script>
 
 </body>

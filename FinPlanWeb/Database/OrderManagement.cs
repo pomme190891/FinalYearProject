@@ -78,6 +78,66 @@ namespace FinPlanWeb.Database
             }
         }
 
+        public static IEnumerable<Order> GetUserOrders(int userId)
+        {
+            var orders = new List<Order>();
+            using (var connection = new SqlConnection(GetConnection()))
+            {
+                const string sql =
+                    @"SELECT [orderID]
+                      ,[userID]
+                      ,[firstName]
+                      ,[lastName]
+                      ,[payerEmail]
+                      ,[paymentDate]
+                      ,[paymentStatus]
+                      ,[paymentType]
+                      ,[mcGross]
+                      ,[mcCurrency]
+                      ,[dateCreated]
+                      ,[paypalID]
+                      ,[directdebitID]
+                      ,[codeID]
+                        FROM [finplanweb].[dbo].[orders] 
+                        WHERE [userID] = @userId 
+                        Order By [dateCreated] Desc";
+                var cmd = new SqlCommand(sql, connection);
+                cmd.Parameters
+                     .Add(new SqlParameter("@userId", SqlDbType.Int))
+                     .Value = userId;
+                connection.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var order = new Order
+                        {
+                            Id = reader.GetInt32(0),
+                            UserId = reader.GetInt32(1),
+                            FirstName = reader.GetString(2),
+                            LastName = reader.GetString(3),
+                            PayerEmail = reader.GetString(4),
+                            PaymentDate = reader.GetDateTime(5),
+                            PaymentStatus = reader.GetString(6),
+                            PaymentType = reader.GetString(7),
+                            Gross = reader.GetSqlMoney(8).ToDecimal(),
+                            Currency = reader.GetSqlMoney(9).ToDecimal(),
+                            DateCreated = reader.GetDateTime(10),
+                            PaypalId = reader.IsDBNull(11) ? null : reader.GetString(11),
+                            DirectDebitId = reader.IsDBNull(12) ? null : reader.GetString(12),
+                            CodeId = reader.IsDBNull(13) ? null : reader.GetString(13),
+                        };
+
+                        orders.Add(order);
+                    }
+
+                }
+
+                return orders;
+            }
+        }
+
         /// <summary>
         /// Get all order records.
         /// </summary>

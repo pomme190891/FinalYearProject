@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Net;
-
+using FinPlanWeb.DTOs;
 
 namespace FinPlanWeb.Database
 {
@@ -57,7 +57,7 @@ namespace FinPlanWeb.Database
                 var cmd = new SqlCommand(sql, connection);
                 var cmd2 = new SqlCommand(sql2, connection);
                 var cmd3 = new SqlCommand(sql3, connection);
-
+              
                 connection.Open();
                 cmd.Parameters
 
@@ -214,6 +214,44 @@ namespace FinPlanWeb.Database
             }
         }
 
+        public static User GetUser(int userId)
+        {
+            var user = new User();
+            using (var connection = new SqlConnection(GetConnection()))
+            {
+                const string sql = @"SELECT * FROM [dbo].[users] where Id = @id";
+                var cmd = new SqlCommand(sql, connection);
+                cmd.Parameters
+                     .Add(new SqlParameter("@id", SqlDbType.Int))
+                     .Value = userId;
+                connection.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        user = new User
+                        {
+                            Id = reader.GetInt32(0),
+                            UserName = reader.GetString(1),
+                            FirstName = reader.GetString(2),
+                            SurName = reader.GetString(3),
+                            FirmName = reader.GetString(4),
+                            Password = reader.GetString(5),
+                            AddedDate = reader.GetDateTime(6),
+                            Email = reader.GetString(7),
+                            IsAdmin = reader.GetBoolean(8),
+                            LastLogin = reader.IsDBNull(9) ? null : (DateTime?)reader.GetDateTime(9),
+                            IpLog = reader.GetValue(10).ToString(),
+                            ModifiedDate = reader.IsDBNull(11) ? null : (DateTime?)reader.GetDateTime(11),
+                            IsDeleted = reader.GetBoolean(12)
+                        };
+                    }
+                }
+                return user;
+            }
+        }
+
 
         public static void UpdateUserPassword(int userId, string newPassword)
         {
@@ -279,7 +317,23 @@ namespace FinPlanWeb.Database
             }
         }
 
+        public static void UpdateUser(EditUserInfoDTO user)
+        {
+            using (var connection = new SqlConnection(GetConnection()))
+            {
 
+                const string sql = @"UPDATE [dbo].[users] SET Firstname=@f, Surname=@s, Firm=@fn, Email=@e WHERE [Id] = @id";
+                connection.Open();
+                var cmd = new SqlCommand(sql, connection);
+                cmd.Parameters.Add(new SqlParameter("@id", SqlDbType.NVarChar)).Value = user.UserId;
+                cmd.Parameters.Add(new SqlParameter("@f", SqlDbType.NVarChar)).Value = user.FirstName;
+                cmd.Parameters.Add(new SqlParameter("@s", SqlDbType.NVarChar)).Value = user.Surname;
+                cmd.Parameters.Add(new SqlParameter("@fn", SqlDbType.NVarChar)).Value = user.FirmName;
+                cmd.Parameters.Add(new SqlParameter("@e", SqlDbType.NVarChar)).Value = user.Email;
+
+                cmd.ExecuteNonQuery();
+            }
+        }
 
         public static void UpdateUser(User user)
         {

@@ -247,8 +247,8 @@ namespace FinPlanWeb.Controllers
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext) 
         {
-            var userSessoion = filterContext.RequestContext.HttpContext.Session["User"]; //get user session
-            if (userSessoion == null)
+            var usersession = filterContext.RequestContext.HttpContext.Session["User"]; //get user session
+            if (usersession == null)
             {
                 filterContext.Result = new RedirectToRouteResult(
                 new RouteValueDictionary {{ "Controller", "Account" },
@@ -257,7 +257,17 @@ namespace FinPlanWeb.Controllers
                 if (controller != null)
                 {
                     if (controller.Request.Url != null)
-                        controller.TempData.Add("ReturnUrl", controller.Request.Url.AbsoluteUri); //temp data for return url
+                    {
+                        if (controller.TempData.ContainsKey("ReturnUrl"))
+                        {
+                            controller.TempData["ReturnUrl"] = controller.Request.Url.AbsoluteUri;      //temp data for return url
+                        }
+                        else
+                        {
+                            controller.TempData.Add("ReturnUrl", controller.Request.Url.AbsoluteUri); //temp data for return url
+                        }
+                        
+                    }
                 }
             }
             base.OnActionExecuting(filterContext);

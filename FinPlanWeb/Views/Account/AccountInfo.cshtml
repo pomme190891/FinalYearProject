@@ -1,0 +1,258 @@
+﻿@{
+    ViewBag.Title = "Account Info";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+<style type="text/css">
+    #orderGrid table tbody tr:hover {
+        cursor: pointer;
+    }
+</style>
+<div style="padding-top: 25px;">
+    <div class="well">
+        <ul class="nav nav-tabs" id="accountTab">
+            <li><a href="#accountinfo"><i class="glyphicon glyphicon-user"></i>&nbsp;Acount Detail</a></li>
+            <li><a href="#recentorder"><i class="glyphicon glyphicon-user"></i>&nbsp;Recent Order</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="accountinfo" class="tab-pane fade active in">
+                <h4>Account Detail</h4>
+                <div class="row">
+                    <div class="col-md-6" id="userDetailContainer">
+                        <div class="well">
+                            <div class="alert alert-danger" data-bind="html: validationMessageEditAccountDetail, visible: validationMessageEditAccountDetail"></div>
+                            <div class="form-group" id="FirstName">
+                                <label class="control-label">First Name: </label>
+                                <input type="text" class="form-control" data-bind="value: userInfo.FirstName, enable: isEditing()" />
+                            </div>
+                            <div class="form-group" id="Surname">
+                                <label class="control-label">Surname: </label>
+                                <input type="text" class="form-control" data-bind="value: userInfo.Surname, enable: isEditing()" />
+                            </div>
+                            <div class="form-group" id="FirmName">
+                                <label class="control-label">Firm Name: </label>
+                                <input type="text" class="form-control" data-bind="value: userInfo.FirmName, enable: isEditing()" />
+                            </div>
+                            <div class="form-group" id="Email">
+                                <label class="control-label">Email: </label>
+                                <input type="text" class="form-control" data-bind="value: userInfo.Email, enable: isEditing()" />
+                            </div>
+                            <button class="btn btn-primary" data-bind="click: editDetail, visible: !isEditing()">Edit Detail</button>
+                            <button class="btn btn-primary" data-bind="click: updateDetail, visible: isEditing()">Update</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6" id="changePasswordContainer">
+                        <div class="well">
+                            <div class="alert alert-danger" data-bind="html: validationMessageChangePassword, visible: validationMessageChangePassword"></div>
+                            <div class="form-group" id="ChangePassword">
+                                <label class="control-label">Change Password: </label>
+                                <input type="password" class="form-control" data-bind="value: newPassword" />
+                            </div>
+                            <button class="btn btn-primary" data-bind="click: updatePassword">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="recentorder" class="tab-pane fade">
+                <h4>Recent Order</h4>
+                <div id="orderGrid" class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover" style="font-size: 11px">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Date</th>
+                                <th>Payment Type</th>
+                                <th>Currency</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- ko foreach:orders -->
+                            <tr data-bind="click: $root.getOrderDetail">
+                                <td class="col-md-1" data-bind="text: Id"></td>
+                                <td class="col-md-1" data-bind="text: Name"></td>
+                                <td class="col-md-1" data-bind="text: TransactionDate"></td>
+                                <td class="col-md-2" data-bind="text: PaymentType"></td>
+                                <td class="col-md-2" data-bind="text: '£ ' + Currency.toFixed(2)"></td>
+                            </tr>
+                            <!-- /ko -->
+                        </tbody>
+                    </table>
+                    <div id="page-selection-recentorders"></div>
+                </div>
+                <div class="modal fade" id="orderDetailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="myModalLabel">Order Detail</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label class="control-label">First Name: </label>
+                                    <span data-bind="text: orderDetail.FirstName"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Last Name: </label>
+                                    <span data-bind="text: orderDetail.LastName"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Transaction Date: </label>
+                                    <span data-bind="text: orderDetail.TransactionDate"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Email: </label>
+                                    <span data-bind="text: orderDetail.Email"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Payment Type: </label>
+                                    <span data-bind="text: orderDetail.PaymentType"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Payment Status: </label>
+                                    <span data-bind="text: orderDetail.PaymentStatus"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Currency: </label>
+                                    <span data-bind="text: '£' + orderDetail.Currency().toFixed(2)"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Gross: </label>
+                                    <span data-bind="text: '£' + orderDetail.Gross().toFixed(2)"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Buyer Username: </label>
+                                    <span data-bind="text: orderDetail.BuyerUsername"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Buyer FirmName: </label>
+                                    <span data-bind="text: orderDetail.BuyerFirmName"></span>
+                                </div>
+                                <div class="form-group" data-bind="visible: orderDetail.PaypalId">
+                                    <label class="control-label">Paypal Id: </label>
+                                    <span data-bind="text: orderDetail.PaypalId"></span>
+                                </div>
+                                <div class="form-group" data-bind="visible: orderDetail.DirectDebitId">
+                                    <label class="control-label">Direct Debit Id: </label>
+                                    <span data-bind="text: orderDetail.DirectDebitId"></span>
+                                </div>
+                                <div class="form-group" data-bind="visible: orderDetail.DirectDebitId">
+                                    <label class="control-label">Promotion Code Id: </label>
+                                    <span data-bind="text: orderDetail.PromotionCodeId"></span>
+                                </div>
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-left">Product Code</th>
+                                            <th class="text-left">Product Name</th>
+                                            <th class="text-center">Quantity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- ko foreach:orderDetail.OrderItems -->
+                                        <tr>
+                                            <td class="text-left" data-bind="text: $data.ProductCode"></td>
+                                            <td class="text-left" data-bind="text: $data.ProductName"></td>
+                                            <td class="text-center" data-bind="text: $data.Quantity"></td>
+                                        </tr>
+                                        <!-- /ko -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#accountTab a").click(function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+        });
+    });
+
+    var accountDetailVM = {
+        isEditing: ko.observable(false),
+        userInfo: ko.mapping.fromJS(@Html.Raw(@ViewBag.UserInfo)),
+        newPassword: ko.observable(),
+        validationMessageEditAccountDetail: ko.observable(),
+        validationMessageChangePassword: ko.observable()
+    };
+    accountDetailVM.editDetail = function () {
+        accountDetailVM.isEditing(true);
+    };
+    accountDetailVM.updateDetail = function () {
+        var userInfo = ko.toJS(accountDetailVM.userInfo);
+        $('#userDetailContainer').find('.form-group').removeClass("has-error");
+        $.post("@Url.Action("UpdateUserDetail")", userInfo, function (ret) {
+            accountDetailVM.validationMessageEditAccountDetail(null);
+            if (!ret.passed) {
+                accountDetailVM.validationMessageEditAccountDetail(ret.validationMessage);
+
+                $.each(ret.validationIds, function (i, id) {
+                    $('#userDetailContainer').find('#' + id).addClass("has-error");
+                });
+            }
+            else {
+                accountDetailVM.isEditing(false);
+                $(document).trigger('notifySuccess', 'User detail has successfully updated.');
+            }
+        });
+    };
+
+    accountDetailVM.updatePassword = function () {
+        accountDetailVM.validationMessageChangePassword(null);
+        $('#changePasswordContainer').find('.form-group').removeClass("has-error");
+        $.ajax({
+            type: 'post',
+            dataType: 'json',
+            url: '@Url.Action("UpdatePassword")',
+            data: { userId: accountDetailVM.userInfo.UserId(), newPassword: accountDetailVM.newPassword() }
+        }).done(function (ret) {
+            if (!ret.passed) {
+                accountDetailVM.validationMessageChangePassword(ret.validationMessage);
+                $.each(ret.validationIds, function (i, id) {
+                    $('#changePasswordContainer').find('#' + id).addClass("has-error");
+                });
+            } else {
+                $(document).trigger('notifySuccess', 'Update password successful.');
+                accountDetailVM.validationMessageChangePassword(null);
+                accountDetailVM.newPassword('');
+            }
+        });
+    };
+
+    var recentOrdersVM = {
+        orders: ko.observableArray(@Html.Raw(@ViewBag.Orders)),
+        orderDetail: ko.mapping.fromJS(@Html.Raw(@ViewBag.OrderDetail)),
+    };
+
+    recentOrdersVM.getOrderDetail = function (data) {
+        $.get("@Url.Action("GetFullOrderDetail", "OrderManagement")", {
+            orderId: data.Id
+        }, function (ret) {
+            ko.mapping.fromJS(ret.orderDetail, recentOrdersVM.orderDetail);
+            $('#orderDetailModal').modal('show');
+        });
+    };
+    recentOrdersVM.InitialisePaging = function (totalPage) {
+        $('#page-selection-recentorders').bootpag({
+            total: totalPage
+        }).on("page", function (event, /* page number here */ num) {
+            $.post("@Url.Action("Paging")", {
+                num: num,
+                userId: accountDetailVM.userInfo.UserId()
+            }, function (ret) {
+                recentOrdersVM.orders(ret.orderList);
+            });
+        });
+    };
+    recentOrdersVM.InitialisePaging(1);
+    ko.applyBindings(accountDetailVM, $('#accountinfo')[0]);
+    ko.applyBindings(recentOrdersVM, $('#recentorder')[0]);
+</script>

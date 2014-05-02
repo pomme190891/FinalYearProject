@@ -163,6 +163,7 @@
         $.get("@Url.Action("AddToCart", "ShoppingCart")", { code: item.Code, quantity: 1 }, function (data) {
             if (data) {
                 model.cart(data);
+                $(document).trigger('notifySuccess', item.Name + ' has been added to the cart.');
             } else {
                 alert('Error');
             }

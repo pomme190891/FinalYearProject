@@ -101,7 +101,7 @@ namespace FinPlanWeb.Controllers
             var order = OrderManagement.GetAllOrders().Single(x => x.Id == orderId); //find a Single record that matches orderID 
             var orderItem = OrderManagement.GetOrderItems(orderId);
             var user = UserManagement.GetAllUserList().Single(x => x.Id == order.UserId);
-            var products = ProductManagement.GetProducts(ProductManagement.ProductType.All)
+            var products = ProductManagement.GetProductsIncludeHidden()
                 .Where(x => IdInList(x.Id, orderItem.Select(o => o.ProductId).ToArray())); //get products within in Orderitems collection.
 
             var orderDetail = new OrderDetailDTO

@@ -154,6 +154,7 @@
     <Compile Include="Controllers\PromoMaintenanceController.cs" />
     <Compile Include="Database\CategoryManagement.cs" />
     <Compile Include="Database\DatabaseManagement.cs" />
+    <Compile Include="DTOs\EditUserInfoDTO.cs" />
     <Compile Include="DTOs\EditProductDTO.cs" />
     <Compile Include="DTOs\EditPromotionDTO.cs" />
     <Compile Include="DTOs\EditUserDTO.cs" />
@@ -293,6 +294,7 @@
     <Content Include="Scripts\jquery-ui-1.10.4.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.min.js" />
     <Content Include="Scripts\jquery.easing.min.js" />
+    <Content Include="Scripts\jquery.noty.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -323,7 +325,7 @@
     <Content Include="Views\Account\LogIn.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_Layout1.cshtml" />
-    <Content Include="Views\Account\CustomerPage.cshtml" />
+    <Content Include="Views\Account\AccountInfo.cshtml" />
     <Content Include="Views\Product\ProductView.cshtml" />
     <Content Include="Views\Admin\UserList.cshtml" />
     <Content Include="Views\ShoppingCart\ShoppingCartView.cshtml" />
@@ -350,7 +352,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Promotion\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
