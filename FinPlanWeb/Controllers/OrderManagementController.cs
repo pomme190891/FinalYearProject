@@ -21,7 +21,7 @@ namespace FinPlanWeb.Controllers
         /// <param name="paymentType"></param>
         /// <param name="firm"></param>
         /// <returns></returns>
-        public ActionResult Search(string from, string to, string paymentType, string firm)
+        public ActionResult Search(string @from, string to, string paymentType, string firm)
         {
             var users = UserManagement.GetAllUserList();
             var orders = OrderManagement.GetAllOrders();

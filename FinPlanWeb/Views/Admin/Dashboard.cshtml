@@ -46,24 +46,21 @@
             <div id="manageuser" class="tab-pane fade active in">
                 <div id="usertable">
                     <h4>User Management</h4>
-                    <p>
-                        <button type="button" class="btn btn-primary ">
+                    <div class="row">
+                        <button type="button" class="btn btn btn-success" data-bind="click: addNewUser">
                             New User
                             <i class="glyphicon glyphicon-user"></i>
                         </button>
-                        &nbsp;&nbsp;&nbsp;
-                        <button type="button" class="btn btn btn-success" data-bind="click: addNewUser">
-                            Refresh
-                            <i class="glyphicon glyphicon-refresh"></i>
-                        </button>
-                        <select data-bind="value:filter">
-                            <option value="3">All</option>
-                            <option value="0">Active</option>
-                            <option value="1">Inactive</option>
-                        </select>
-                        <button class="btn btn-danger">Archieved Users</button>
-                    </p>
+                        <div class="col-sm-3">
+                            <select class="form-control" data-bind="value:filter">
+                                <option value="3">All</option>
+                                <option value="0">Active</option>
+                                <option value="1">Inactive</option>
+                            </select>
+                        </div>
 
+                    </div>
+                    <hr />
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered table-hover" style="font-size: 11px">
                             <thead>
@@ -110,7 +107,7 @@
                                 <div class="modal-body">
                                     <div class="form-group" id="Username">
                                         <label class="control-label">Username</label>
-                                        <input type="text" class="form-control" name="Username" placeholder="userName" data-bind="value:userDetails.UserName, disable:editting" />
+                                        <input type="text" class="form-control" name="Username" placeholder="Username" data-bind="value:userDetails.UserName, disable:editting" />
                                     </div>
                                     <div class="form-group" id="Password" data-bind="visible: creating">
                                         <label class="control-label">New Password</label>
@@ -122,15 +119,15 @@
                                     </div>
                                     <div class="form-group" id="Firstname">
                                         <label class="control-label">Firstname</label>
-                                        <input type="text" class="form-control" name="firstName" placeholder="First Name" data-bind="value: userDetails.FirstName" />
+                                        <input type="text" class="form-control" name="firstName" placeholder="Firstname" data-bind="value: userDetails.FirstName" />
                                     </div>
                                     <div class="form-group" id="Surname">
                                         <label class="control-label">Surname</label>
-                                        <input type="text" class="form-control" name="surName" placeholder="surName" data-bind="value: userDetails.SurName" />
+                                        <input type="text" class="form-control" name="surName" placeholder="Surname" data-bind="value: userDetails.SurName" />
                                     </div>
                                     <div class="form-group" id="Firmname">
                                         <label class="control-label">Firm Name</label>
-                                        <input type="text" class="form-control" name="firmName" placeholder="firmName" data-bind="value: userDetails.FirmName" />
+                                        <input type="text" class="form-control" name="firmName" placeholder="Firmname" data-bind="value: userDetails.FirmName" />
                                     </div>
                                     <div class="form-group" id="Email">
                                         <label class="control-label">Email</label>
@@ -178,7 +175,7 @@
                                 <div class="form-group" id="NewPassword">
                                     <label class="col-md-3 control-label">New Password</label>
                                     <div class="col-md-6">
-                                        <input type="password" class="form-control" name="NewPassword" data-bind="value:changePasswordDetail.newPassword" />
+                                        <input type="password" class="form-control" placeholder="New Password" name="NewPassword" data-bind="value:changePasswordDetail.newPassword" />
                                     </div>
                                 </div>
                             </div>
@@ -294,45 +291,45 @@
                             total: result.totalUsersPage
                         }).on("page", function (event, /* page number here */ num) {
                             $.post("@Url.Action("Paging")", {num:num,isInactive:parseInt(model.filter())}, function(users) {
+                                model.users(users);
+                            });
+                        });
+                    }
+                }
+            });
+
+        } else {
+            $.ajax({
+                url: "@Url.Action("AddUser")",
+                type: "POST",
+                data: JSON.stringify({ user: ko.toJS(data.userDetails), inActive: parseInt(model.filter()) }),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (result) {
+                    if (!result.passed) {
+                        model.validationMessageCreateUpdate(result.validationMessage);
+                        $.each(result.validationIds, function(i, id) {
+                            $('#' + id).addClass("has-error");
+                        });
+                    } else {
+                        model.users(result.users);
+                        alert('Save successfully.');
+                        model.creating(false);
+                        model.editting(false);
+                        model.deleting(false);
+                        model.clearUserDetails();
+                        $('#myModal').modal('hide');
+                                
+                        $('#page-selection').bootpag({
+                            total: result.totalUsersPage
+                        }).on("page", function (event, /* page number here */ num) {
+                            $.post("@Url.Action("Paging")", {num:num,isInactive:parseInt(model.filter())}, function(users) {
                                         model.users(users);
                                     });
                                 });
                             }
                         }
             });
-
-                } else {
-                    $.ajax({
-                        url: "@Url.Action("AddUser")",
-                        type: "POST",
-                        data: JSON.stringify({ user: ko.toJS(data.userDetails), inActive: parseInt(model.filter()) }),
-                        dataType: 'json',
-                        contentType: 'application/json',
-                        success: function (result) {
-                            if (!result.passed) {
-                                model.validationMessageCreateUpdate(result.validationMessage);
-                                $.each(result.validationIds, function(i, id) {
-                                    $('#' + id).addClass("has-error");
-                                });
-                            } else {
-                                model.users(result.users);
-                                alert('Save successfully.');
-                                model.creating(false);
-                                model.editting(false);
-                                model.deleting(false);
-                                model.clearUserDetails();
-                                $('#myModal').modal('hide');
-                                
-                                $('#page-selection').bootpag({
-                                    total: result.totalUsersPage
-                                }).on("page", function (event, /* page number here */ num) {
-                                    $.post("@Url.Action("Paging")", {num:num,isInactive:parseInt(model.filter())}, function(users) {
-                                        model.users(users);
-                                    });
-                                });
-                            }
-                        }
-                    });
                 }
     };
 
@@ -379,8 +376,8 @@
 
             $('#page-selection').bootpag({
                 total: @ViewBag.TotalUsersPage
-                              }).on("page", function (event, /* page number here */ num) {
-                                  $.post("@Url.Action("Paging")", {num:num,isInactive:parseInt(model.filter())}, function(users) {
+                }).on("page", function (event, /* page number here */ num) {
+                    $.post("@Url.Action("Paging")", {num:num,isInactive:parseInt(model.filter())}, function(users) {
                         model.users(users);
                     });
                 });

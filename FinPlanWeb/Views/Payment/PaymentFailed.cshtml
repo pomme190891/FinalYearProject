@@ -6,7 +6,7 @@
 @model FinPlanWeb.Controllers.TransacDetails
 
 <div class="jumbotron">
-    <h2>Opps! Something went wrong</h2>
+    <h2>Your order has failed. Please contact us at support@bluecoatsoftware.com</h2>
     <p> @{ var index = 1; foreach (var error in Model.Errors)
      {
          var message = string.Format("{0}) {1}", @index, @error); <text>@message</text> <br /> index++;

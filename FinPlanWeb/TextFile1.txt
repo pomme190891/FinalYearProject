@@ -6,15 +6,3 @@ DTO = Data Trasfer Object
 
 
 StringBuilder was used so that the string keeps on adding
-
-
-Product Management
-1. Add product to the database, remember each product along to 1 catergory and set deleted coloumn to 0
-2. Delete product by setting deleted column to 1
-
-Promotion Management
-1. Add promotion to the database set deleted coloumn to 0
-2. Delete promotion by setting deleted column to 1
-
-User Management
-1. When inactive is selected, button changes to 'reactive' button and update the database so that deleted column is set 0.

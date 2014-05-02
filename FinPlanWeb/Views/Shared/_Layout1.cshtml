@@ -108,8 +108,13 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav">
                     <li class="menu">
-                        <a href="@Url.Action("ProductView", "Product")">E-Store</a>
-                    </li>
+                         @if (Request.IsAuthenticated)
+                         {
+                            <li class="menu"> <a href="@Url.Action("ProductView", "Product")">E-Store</a>
+                            </li>
+                           
+                         }
+                       
                     @RenderSection("Account", required: false)
                     <li>
                         <a href="#contact">Contact</a>
@@ -186,7 +191,7 @@
                 </ul>
                 <p class="text-center">Bluecoat Software &copy; Copyright 2014</p>
                 <p>
-                    <img src="~/Content/Image/powered-by-finplan-102x38-trans.jpg" />
+                    <img src="~/Content/Image/bclogo.png" />
                 </p>
             </div>
         </div>

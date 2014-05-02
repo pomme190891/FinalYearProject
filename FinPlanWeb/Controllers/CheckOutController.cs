@@ -83,6 +83,8 @@ namespace FinPlanWeb.Controllers
 
         /// <summary>
         /// Get the system to send email once Direct Debit has been placed.
+		/// This configuration is using the local hosting machine
+		/// Therefore you will need to install a software called 'smtp4dev'
         /// </summary>
         /// <param name="checkout"></param>
         /// <param name="cart"></param>
@@ -164,7 +166,7 @@ namespace FinPlanWeb.Controllers
 
             if (string.IsNullOrEmpty(checkout.BillingInfo.FirmName))
             {
-                validationMessage.Add("First Name is empty.");
+                validationMessage.Add("First Name cannot be emptied.");
             }
 
             if (string.IsNullOrEmpty(checkout.BillingInfo.BuildingName))
@@ -219,7 +221,7 @@ namespace FinPlanWeb.Controllers
 
             if (string.IsNullOrEmpty(checkout.BillingInfo.Email))
             {
-                validationMessage.Add("Email is empty.");
+                validationMessage.Add("Email cannot be emptied.");
             }
             else
             {
@@ -273,6 +275,5 @@ namespace FinPlanWeb.Controllers
             base.OnActionExecuting(filterContext);
         }
     }
-
 
 }

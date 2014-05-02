@@ -1,0 +1,360 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="FinPlanWeb.BundleConfig" Collapsed="true">
+    <Position X="23.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\BundleConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.FilterConfig">
+    <Position X="26.75" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\FilterConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.RouteConfig">
+    <Position X="26.75" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\RouteConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.WebApiConfig">
+    <Position X="23.5" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\WebApiConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.MvcApplication">
+    <Position X="28.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Global.asax.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.Controllers.AccountController">
+    <Position X="14.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAACAAAAAAAAAgAEQAAAAAABABAgAAEQAIIEABA=</HashCode>
+      <FileName>Controllers\AccountController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.Controllers.AdminController">
+    <Position X="19" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAABCAkAAEAAAEAAAAABAAAAAgAAEAAIAACBA=</HashCode>
+      <FileName>Controllers\AdminController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.Controllers.BaseController">
+    <Position X="10" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\BaseController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.Controllers.CheckOutController">
+    <Position X="3.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAACABAAAAAAAAAAAAgAAAAAAEAAAEABAAAA=</HashCode>
+      <FileName>Controllers\CheckOutController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.Controllers.CheckUserSession">
+    <Position X="32" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\CheckOutController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.Controllers.HomeController">
+    <Position X="7.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\HomeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.Controllers.OrderManagementController">
+    <Position X="12.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAEQAABAAAAAEAAAAAAAAggABA=</HashCode>
+      <FileName>Controllers\OrderManagementController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.Controllers.PaymentController">
+    <Position X="16.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEEAAAAAAEAAAAEAAAAAAAAAAAAAAAAAAEAAQAAAAA=</HashCode>
+      <FileName>Controllers\PaymentController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.Controllers.TransacDetails">
+    <Position X="28.5" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAACAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\PaymentController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.Controllers.ProductController">
+    <Position X="1" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAgAAgAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\ProductController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.Controllers.ProductMaintenanceController">
+    <Position X="5.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAACAAAAQAAAMAAAAAAAAAAAgAAEAAAAAABA=</HashCode>
+      <FileName>Controllers\ProductMaintenanceController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.Controllers.PromoMaintenanceController">
+    <Position X="21.5" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAACAAAIFAAAAAAAAAAAgAAEAAAAAABA=</HashCode>
+      <FileName>Controllers\PromoMaintenanceController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.Controllers.ShoppingCartController">
+    <Position X="10" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAEAAAAAAAAAAAAAgAAAACCA=</HashCode>
+      <FileName>Controllers\ShoppingCartController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.Database.CategoryManagement">
+    <Position X="5" Y="17" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="FinPlanWeb.Database.CategoryManagement.Category" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Database\CategoryManagement.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Database\CategoryManagement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.Database.DatabaseManagement">
+    <Position X="5" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Database\DatabaseManagement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.Database.OrderManagement">
+    <Position X="9.25" Y="16.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="FinPlanWeb.Database.OrderManagement.OrderItem" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Database\OrderManagement.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="FinPlanWeb.Database.OrderManagement.Order" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Database\OrderManagement.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>IABAAAAAAAAQAAAAAAAAAIAAAAAAgAABAAAAAACAAAg=</HashCode>
+      <FileName>Database\OrderManagement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.Database.PayPalManagement">
+    <Position X="16.25" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAEAAAIAABAAAAAAAAAAAAAAACAYABAAAAAAAAAA=</HashCode>
+      <FileName>Database\PayPalManagement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.Database.Product">
+    <Position X="28.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAQAAggAAAAAgAAQAAgAAAAAAAAgAAAAEAAA=</HashCode>
+      <FileName>Database\ProductManagement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.Database.ProductManagement">
+    <Position X="0.5" Y="16.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="FinPlanWeb.Database.ProductManagement.ProductType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Database\ProductManagement.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAQAAAAAAAAAAAACAAAAAAAAAQAAACAAAAAA=</HashCode>
+      <FileName>Database\ProductManagement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.Database.PromoManagement">
+    <Position X="2.75" Y="16.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="FinPlanWeb.Database.PromoManagement.Promotion" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Database\PromoManagement.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAQAAAAAAAAAAAEAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Database\PromoManagement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.Database.UserManagement">
+    <Position X="7.25" Y="17" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="FinPlanWeb.Database.UserManagement.User" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Database\UserManagement.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAACAAAAEAAgAAAAACQAAAAAkGAEACAAAAAA=</HashCode>
+      <FileName>Database\UserManagement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.DTOs.EditProductDTO">
+    <Position X="30.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAQAAAgAAAAAgAAQAAgAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>DTOs\EditProductDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.DTOs.EditPromotionDTO" Collapsed="true">
+    <Position X="21.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAABQAAAAAAAAAAAAAAAgAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>DTOs\EditPromotionDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.DTOs.EditUserDTO">
+    <Position X="33.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAgACAAAAAAAAAEAAAACAAAAAACAQAAAUAAIAA=</HashCode>
+      <FileName>DTOs\EditUserDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.DTOs.EditUserInfoDTO">
+    <Position X="25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAACAAAAAAAAAAAAgABAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>DTOs\EditUserInfoDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.DTOs.OrderDetailDTO">
+    <Position X="26" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAAICEAAAAIAAAQEAAACAAAgAAAAAAQMAAAAAg=</HashCode>
+      <FileName>DTOs\OrderDetailDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.DTOs.OrderItemDTO">
+    <Position X="23.25" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAIIAA=</HashCode>
+      <FileName>DTOs\OrderDetailDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.DTOs.OrderDTO">
+    <Position X="33" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAIAEAAAAAAAAQAAQACAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>DTOs\OrderDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.DTOs.ProductDTO">
+    <Position X="31" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>MAAAAAAAAQAAAAAAAAAgAAQAAAAAAAAAAQAAAAAECAA=</HashCode>
+      <FileName>DTOs\ProductDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.DTOs.UserLoginDto">
+    <Position X="19.5" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAAAAAAAAAAAQAAAAAADAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DTOs\UserLoginDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.Models.CartItem">
+    <Position X="33.25" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAACAAAAAAAAAAQAAAAgAAQAAAAQQAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Models\Cart.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.Models.Checkout">
+    <Position X="28" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Models\Checkout.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.Models.PaymentInfo">
+    <Position X="26.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Models\Checkout.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.Models.BillingInfo">
+    <Position X="21.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAQCAAAACIAAAEAAQAAAAAAAAAAAAAgEAAAAQ=</HashCode>
+      <FileName>Models\Checkout.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.Models.Register">
+    <Position X="23.25" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAACAAAAAgAAIAA=</HashCode>
+      <FileName>Models\Register.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.Models.ResetPassword">
+    <Position X="25" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ResetPassword.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FinPlanWeb.Models.User">
+    <Position X="31.25" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEQAAAAAAAAAAAAACAAAAAAAgAAA=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="FinPlanWeb.Models.PaymentType">
+    <Position X="21.5" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Checkout.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
