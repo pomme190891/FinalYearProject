@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -91,10 +92,9 @@ namespace FinPlanWeb.Controllers
         /// <param name="orderNumber"></param>
 
         private void SendEmail(Checkout checkout, List<CartItem> cart, int orderNumber)
-
         {
-            var mail = new MailMessage("you@yourcompany.com", checkout.BillingInfo.Email);
-            var client = new SmtpClient();
+            var id = orderNumber.ToString().PadLeft(6, '0');
+            var mail = new MailMessage("tjunmeng@gmail.com", checkout.BillingInfo.Email);
             var bodyText = "<html>" +
                            "<head>" +
                                "<style> " +
@@ -103,7 +103,7 @@ namespace FinPlanWeb.Controllers
                                "</style>" +
                            "</head>" +
                            "<body>" +
-                           "<h2>Your order has been confirmed. The order number is : +" + orderNumber + "</h2>" +
+                           "<h2>Your order has been confirmed. The order number is : " + id + "</h2>" +
                            "<p>Below are a list of items that you have purchased:</p></br></br>" +
                            "<table>" +
                                "<thead>" +
@@ -119,14 +119,21 @@ namespace FinPlanWeb.Controllers
                            "</table>" +
                            "</body>" +
                            "</html>";
-            client.Port = 25;
-            client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            client.UseDefaultCredentials = false;
-            client.Host = "localhost";
-            mail.Subject = "Order Confirmation:" + orderNumber;
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential("Pom.boonpradab@gmail.com", "p19o08m1991me")
+            };
+
+            mail.Subject = "Order Confirmation: " + id;
             mail.IsBodyHtml = true;
             mail.Body = bodyText;
-            client.Send(mail);
+            smtp.Send(mail);
+            smtp.Dispose();
         }
 
         /// <summary>

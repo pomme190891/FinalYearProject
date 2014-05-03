@@ -213,7 +213,7 @@ namespace FinPlanWeb.Controllers
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        [CheckUserSession]
+    
         [HttpPost]
         public ActionResult Login(User user)
         {
