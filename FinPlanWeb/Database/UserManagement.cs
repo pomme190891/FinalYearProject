@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Net;
-using FinPlanWeb.DTOs;
+using SALuminousWeb.DTOs;
 
-namespace FinPlanWeb.Database
+namespace SALuminousWeb.Database
 {
     public class UserManagement : DatabaseManagement
     {
@@ -57,7 +57,10 @@ namespace FinPlanWeb.Database
                 var cmd = new SqlCommand(sql, connection);
                 var cmd2 = new SqlCommand(sql2, connection);
                 var cmd3 = new SqlCommand(sql3, connection);
-              
+
+        var val = Helpers.SHA1.Encode(password);
+
+
                 connection.Open();
                 cmd.Parameters
 
@@ -78,7 +81,7 @@ namespace FinPlanWeb.Database
                 cmd3.Parameters
                           .Add(new SqlParameter("@p", SqlDbType.NVarChar))
                           .Value = Helpers.SHA1.Encode(password);
-                cmd3.Parameters.AddWithValue("@ip", GetIp());
+                cmd3.Parameters.AddWithValue("@ip", IsDebug ? "192.168.1.102" : GetIp());
 
 
                 var reader = cmd.ExecuteReader();

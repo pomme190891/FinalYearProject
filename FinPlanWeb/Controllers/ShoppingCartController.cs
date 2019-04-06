@@ -2,10 +2,10 @@
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
-using FinPlanWeb.Database;
-using FinPlanWeb.Models;
+using SALuminousWeb.Database;
+using SALuminousWeb.Models;
 
-namespace FinPlanWeb.Controllers
+namespace SALuminousWeb.Controllers
 {
     public class ShoppingCartController : BaseController
     {

@@ -1,6 +1,6 @@
-﻿using FinPlanWeb.Database;
+﻿using SALuminousWeb.Database;
 
-namespace FinPlanWeb.DTOs
+namespace SALuminousWeb.DTOs
 {
     public class EditUserDTO
     {

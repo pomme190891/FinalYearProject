@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
-namespace FinPlanWeb
+namespace SALuminousWeb
 {
     public static class WebApiConfig
     {

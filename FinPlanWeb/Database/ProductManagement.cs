@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using FinPlanWeb.DTOs;
+using SALuminousWeb.DTOs;
 
-namespace FinPlanWeb.Database
+namespace SALuminousWeb.Database
 {
 
     public class Product
@@ -183,7 +183,7 @@ namespace FinPlanWeb.Database
                     Connection = con,
                     CommandType = CommandType.Text,
                     CommandText =
-                        @"INSERT INTO [finplanweb].[dbo].[products]
+                        @"INSERT INTO [SALuminousWeb].[dbo].[products]
                            ([productCode]
                            ,[description]
                            ,[addedDate]

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
-using FinPlanWeb.DTOs;
-using FinPlanWeb.Database;
+using SALuminousWeb.DTOs;
+using SALuminousWeb.Database;
 
-namespace FinPlanWeb.Controllers
+namespace SALuminousWeb.Controllers
 {
     public class PromoMaintenanceController : Controller
     {

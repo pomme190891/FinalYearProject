@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace FinPlanWeb.DTOs
+namespace SALuminousWeb.DTOs
 {
     public class UserLoginDto
     {

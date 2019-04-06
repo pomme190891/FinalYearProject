@@ -1,4 +1,4 @@
-﻿namespace FinPlanWeb.DTOs
+﻿namespace SALuminousWeb.DTOs
 {
     public class EditPromotionDTO
     {

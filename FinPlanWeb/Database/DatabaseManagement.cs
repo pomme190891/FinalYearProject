@@ -1,4 +1,4 @@
-﻿namespace FinPlanWeb.Database
+﻿namespace SALuminousWeb.Database
 {
     public class DatabaseManagement
     {
@@ -9,5 +9,17 @@
         {
             return System.Configuration.ConfigurationManager.ConnectionStrings["standard"].ConnectionString;
         }
+
+    public static bool IsDebug
+    {
+      get
+      {
+#if DEBUG
+        return true;
+#else
+        return false;
+#endif
+      }
     }
+  }
 }

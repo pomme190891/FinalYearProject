@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web;
-using FinPlanWeb.Models;
+using SALuminousWeb.Models;
 using PayPal.Api.Payments;
 using PayPal.PayPalAPIInterfaceService;
 using PayPal.PayPalAPIInterfaceService.Model;
 
-namespace FinPlanWeb.Database
+namespace SALuminousWeb.Database
 {
     public class PayPalManagement
     {

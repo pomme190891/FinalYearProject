@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FinPlanWeb.DTOs
+namespace SALuminousWeb.DTOs
 {
     public class OrderDetailDTO
     {

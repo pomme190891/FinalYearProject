@@ -1,6 +1,6 @@
 ﻿using System.Web.Optimization;
 
-namespace FinPlanWeb
+namespace SALuminousWeb
 {
     public class BundleConfig
     {
@@ -15,13 +15,13 @@ namespace FinPlanWeb
             bundles.Add(new ScriptBundle("~/bundles/scrollingnavjs").Include(
                         "~/Scripts/scrolling-nav.js"));
 
-            bundles.Add(new ScriptBundle("~/Content/fontawesomecss").Include(
+            bundles.Add(new StyleBundle("~/Content/fontawesomecss").Include(
                         "~/Content/font-awesome.min.css"));
 
-            bundles.Add(new ScriptBundle("~/Content/scrollingnavcss").Include(
+            bundles.Add(new StyleBundle("~/Content/scrollingnavcss").Include(
                         "~/Content/scrolling-nav.css"));
 
-            bundles.Add(new ScriptBundle("~/Content/stylistcss").Include(
+            bundles.Add(new StyleBundle("~/Content/stylistcss").Include(
                         "~/Content/stylish-portfolio.css"));
             
             bundles.Add(new ScriptBundle("~/bundles/bootstrapjs").Include(

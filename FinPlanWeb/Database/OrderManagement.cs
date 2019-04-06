@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using FinPlanWeb.Models;
+using SALuminousWeb.Models;
 
 
-namespace FinPlanWeb.Database
+namespace SALuminousWeb.Database
 {
     public class OrderManagement : DatabaseManagement
     {
@@ -52,7 +52,7 @@ namespace FinPlanWeb.Database
                       ,[ProductID]
                       ,[qty]
                       ,[orderID]
-                      FROM [finplanweb].[dbo].[orderItems]" +
+                      FROM [SALuminousWeb].[dbo].[orderItems]" +
                       " WHERE orderId = @orderId";
                 var cmd = new SqlCommand(sql, connection);
                 cmd.Parameters
@@ -98,7 +98,7 @@ namespace FinPlanWeb.Database
                       ,[paypalID]
                       ,[directdebitID]
                       ,[codeID]
-                        FROM [finplanweb].[dbo].[orders] 
+                        FROM [SALuminousWeb].[dbo].[orders] 
                         WHERE [userID] = @userId 
                         Order By [dateCreated] Desc";
                 var cmd = new SqlCommand(sql, connection);
@@ -162,7 +162,7 @@ namespace FinPlanWeb.Database
                       ,[paypalID]
                       ,[directdebitID]
                       ,[codeID]
-                        FROM [finplanweb].[dbo].[orders]";
+                        FROM [SALuminousWeb].[dbo].[orders]";
                 var cmd = new SqlCommand(sql, connection);
                 connection.Open();
 

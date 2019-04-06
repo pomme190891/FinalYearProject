@@ -1,138 +1,138 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="FinPlanWeb.BundleConfig" Collapsed="true">
+  <Class Name="SALuminousWeb.BundleConfig" Collapsed="true">
     <Position X="23.25" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
       <FileName>App_Start\BundleConfig.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.FilterConfig">
+  <Class Name="SALuminousWeb.FilterConfig">
     <Position X="26.75" Y="10" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
       <FileName>App_Start\FilterConfig.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.RouteConfig">
+  <Class Name="SALuminousWeb.RouteConfig">
     <Position X="26.75" Y="11.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
       <FileName>App_Start\RouteConfig.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.WebApiConfig">
+  <Class Name="SALuminousWeb.WebApiConfig">
     <Position X="23.5" Y="15.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
       <FileName>App_Start\WebApiConfig.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.MvcApplication">
+  <Class Name="SALuminousWeb.MvcApplication">
     <Position X="28.5" Y="9.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
       <FileName>Global.asax.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.Controllers.AccountController">
+  <Class Name="SALuminousWeb.Controllers.AccountController">
     <Position X="14.5" Y="9.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AgAAAAACAAAAAAAAAgAEQAAAAAABABAgAAEQAIIEABA=</HashCode>
       <FileName>Controllers\AccountController.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.Controllers.AdminController">
+  <Class Name="SALuminousWeb.Controllers.AdminController">
     <Position X="19" Y="9.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AACAAAAAABCAkAAEAAAEAAAAABAAAAAgAAEAAIAACBA=</HashCode>
       <FileName>Controllers\AdminController.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.Controllers.BaseController">
+  <Class Name="SALuminousWeb.Controllers.BaseController">
     <Position X="10" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Controllers\BaseController.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.Controllers.CheckOutController">
+  <Class Name="SALuminousWeb.Controllers.CheckOutController">
     <Position X="3.25" Y="9.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AgAAAAAAAACABAAAAAAAAAAAAgAAAAAAEAAAEABAAAA=</HashCode>
       <FileName>Controllers\CheckOutController.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.Controllers.CheckUserSession">
+  <Class Name="SALuminousWeb.Controllers.CheckUserSession">
     <Position X="32" Y="9" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Controllers\CheckOutController.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.Controllers.HomeController">
+  <Class Name="SALuminousWeb.Controllers.HomeController">
     <Position X="7.75" Y="9.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
       <FileName>Controllers\HomeController.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.Controllers.OrderManagementController">
+  <Class Name="SALuminousWeb.Controllers.OrderManagementController">
     <Position X="12.25" Y="9.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAQAAAAEQAABAAAAAEAAAAAAAAggABA=</HashCode>
       <FileName>Controllers\OrderManagementController.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.Controllers.PaymentController">
+  <Class Name="SALuminousWeb.Controllers.PaymentController">
     <Position X="16.75" Y="9.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAEEAAAAAAEAAAAEAAAAAAAAAAAAAAAAAAEAAQAAAAA=</HashCode>
       <FileName>Controllers\PaymentController.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.Controllers.TransacDetails">
+  <Class Name="SALuminousWeb.Controllers.TransacDetails">
     <Position X="28.5" Y="11.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAQAAAAACAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Controllers\PaymentController.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.Controllers.ProductController">
+  <Class Name="SALuminousWeb.Controllers.ProductController">
     <Position X="1" Y="9.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAgAAgAAEAAAAAAAA=</HashCode>
       <FileName>Controllers\ProductController.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.Controllers.ProductMaintenanceController">
+  <Class Name="SALuminousWeb.Controllers.ProductMaintenanceController">
     <Position X="5.5" Y="9.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAgAAACAAAAQAAAMAAAAAAAAAAAgAAEAAAAAABA=</HashCode>
       <FileName>Controllers\ProductMaintenanceController.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.Controllers.PromoMaintenanceController">
+  <Class Name="SALuminousWeb.Controllers.PromoMaintenanceController">
     <Position X="21.5" Y="11.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAACAAACAAAIFAAAAAAAAAAAgAAEAAAAAABA=</HashCode>
       <FileName>Controllers\PromoMaintenanceController.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.Controllers.ShoppingCartController">
+  <Class Name="SALuminousWeb.Controllers.ShoppingCartController">
     <Position X="10" Y="10" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAIAAAAAAEAAAAAAAAAAAAAgAAAACCA=</HashCode>
       <FileName>Controllers\ShoppingCartController.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.Database.CategoryManagement">
+  <Class Name="SALuminousWeb.Database.CategoryManagement">
     <Position X="5" Y="17" Width="1.5" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <NestedTypes>
-      <Class Name="FinPlanWeb.Database.CategoryManagement.Category" Collapsed="true">
+      <Class Name="SALuminousWeb.Database.CategoryManagement.Category" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>Database\CategoryManagement.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -143,25 +143,25 @@
       <FileName>Database\CategoryManagement.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.Database.DatabaseManagement">
+  <Class Name="SALuminousWeb.Database.DatabaseManagement">
     <Position X="5" Y="13" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
       <FileName>Database\DatabaseManagement.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.Database.OrderManagement">
+  <Class Name="SALuminousWeb.Database.OrderManagement">
     <Position X="9.25" Y="16.75" Width="1.5" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <NestedTypes>
-      <Class Name="FinPlanWeb.Database.OrderManagement.OrderItem" Collapsed="true">
+      <Class Name="SALuminousWeb.Database.OrderManagement.OrderItem" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>Database\OrderManagement.cs</NewMemberFileName>
         </TypeIdentifier>
       </Class>
-      <Class Name="FinPlanWeb.Database.OrderManagement.Order" Collapsed="true">
+      <Class Name="SALuminousWeb.Database.OrderManagement.Order" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>Database\OrderManagement.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -172,27 +172,27 @@
       <FileName>Database\OrderManagement.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.Database.PayPalManagement">
+  <Class Name="SALuminousWeb.Database.PayPalManagement">
     <Position X="16.25" Y="15" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAIAAEAAAIAABAAAAAAAAAAAAAAACAYABAAAAAAAAAA=</HashCode>
       <FileName>Database\PayPalManagement.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.Database.Product">
+  <Class Name="SALuminousWeb.Database.Product">
     <Position X="28.75" Y="13.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAQAAggAAAAAgAAQAAgAAAAAAAAgAAAAEAAA=</HashCode>
       <FileName>Database\ProductManagement.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.Database.ProductManagement">
+  <Class Name="SALuminousWeb.Database.ProductManagement">
     <Position X="0.5" Y="16.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <NestedTypes>
-      <Enum Name="FinPlanWeb.Database.ProductManagement.ProductType" Collapsed="true">
+      <Enum Name="SALuminousWeb.Database.ProductManagement.ProductType" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>Database\ProductManagement.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -203,13 +203,13 @@
       <FileName>Database\ProductManagement.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.Database.PromoManagement">
+  <Class Name="SALuminousWeb.Database.PromoManagement">
     <Position X="2.75" Y="16.75" Width="1.5" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <NestedTypes>
-      <Class Name="FinPlanWeb.Database.PromoManagement.Promotion" Collapsed="true">
+      <Class Name="SALuminousWeb.Database.PromoManagement.Promotion" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>Database\PromoManagement.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -220,13 +220,13 @@
       <FileName>Database\PromoManagement.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.Database.UserManagement">
+  <Class Name="SALuminousWeb.Database.UserManagement">
     <Position X="7.25" Y="17" Width="1.5" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <NestedTypes>
-      <Class Name="FinPlanWeb.Database.UserManagement.User" Collapsed="true">
+      <Class Name="SALuminousWeb.Database.UserManagement.User" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>Database\UserManagement.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -237,119 +237,119 @@
       <FileName>Database\UserManagement.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.DTOs.EditProductDTO">
+  <Class Name="SALuminousWeb.DTOs.EditProductDTO">
     <Position X="30.25" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAQAAAgAAAAAgAAQAAgAAAAAAAAAAAAAEAAA=</HashCode>
       <FileName>DTOs\EditProductDTO.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.DTOs.EditPromotionDTO" Collapsed="true">
+  <Class Name="SALuminousWeb.DTOs.EditPromotionDTO" Collapsed="true">
     <Position X="21.5" Y="9.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QAAAAAAABQAAAAAAAAAAAAAAAgAAAAAAAAAAAAAEAAA=</HashCode>
       <FileName>DTOs\EditPromotionDTO.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.DTOs.EditUserDTO">
+  <Class Name="SALuminousWeb.DTOs.EditUserDTO">
     <Position X="33.25" Y="10.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAEAgACAAAAAAAAAEAAAACAAAAAACAQAAAUAAIAA=</HashCode>
       <FileName>DTOs\EditUserDTO.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.DTOs.EditUserInfoDTO">
+  <Class Name="SALuminousWeb.DTOs.EditUserInfoDTO">
     <Position X="25" Y="8" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAEAAACAAAAAAAAAAAAgABAAAAAAAAAAAAEAAAAA=</HashCode>
       <FileName>DTOs\EditUserInfoDTO.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.DTOs.OrderDetailDTO">
+  <Class Name="SALuminousWeb.DTOs.OrderDetailDTO">
     <Position X="26" Y="13" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAEAAICEAAAAIAAAQEAAACAAAgAAAAAAQMAAAAAg=</HashCode>
       <FileName>DTOs\OrderDetailDTO.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.DTOs.OrderItemDTO">
+  <Class Name="SALuminousWeb.DTOs.OrderItemDTO">
     <Position X="23.25" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAIIAA=</HashCode>
       <FileName>DTOs\OrderDetailDTO.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.DTOs.OrderDTO">
+  <Class Name="SALuminousWeb.DTOs.OrderDTO">
     <Position X="33" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAIAEAAAAAAAAQAAQACAAAAAAAAAAAEAAAAAA=</HashCode>
       <FileName>DTOs\OrderDTO.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.DTOs.ProductDTO">
+  <Class Name="SALuminousWeb.DTOs.ProductDTO">
     <Position X="31" Y="10.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>MAAAAAAAAQAAAAAAAAAgAAQAAAAAAAAAAQAAAAAECAA=</HashCode>
       <FileName>DTOs\ProductDTO.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.DTOs.UserLoginDto">
+  <Class Name="SALuminousWeb.DTOs.UserLoginDto">
     <Position X="19.5" Y="15" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAEAAAAAAAAAAAQAAAAAADAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>DTOs\UserLoginDTO.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.Models.CartItem">
+  <Class Name="SALuminousWeb.Models.CartItem">
     <Position X="33.25" Y="14" Width="1.5" />
     <TypeIdentifier>
       <HashCode>IAACAAAAAAAAAAQAAAAgAAQAAAAQQAAAAAAAgAAAAAA=</HashCode>
       <FileName>Models\Cart.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.Models.Checkout">
+  <Class Name="SALuminousWeb.Models.Checkout">
     <Position X="28" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ACAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAACAAAAAAA=</HashCode>
       <FileName>Models\Checkout.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.Models.PaymentInfo">
+  <Class Name="SALuminousWeb.Models.PaymentInfo">
     <Position X="26.75" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAA=</HashCode>
       <FileName>Models\Checkout.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.Models.BillingInfo">
+  <Class Name="SALuminousWeb.Models.BillingInfo">
     <Position X="21.5" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAEAAQCAAAACIAAAEAAQAAAAAAAAAAAAAgEAAAAQ=</HashCode>
       <FileName>Models\Checkout.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.Models.Register">
+  <Class Name="SALuminousWeb.Models.Register">
     <Position X="23.25" Y="13.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAACAAAAAgAAIAA=</HashCode>
       <FileName>Models\Register.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.Models.ResetPassword">
+  <Class Name="SALuminousWeb.Models.ResetPassword">
     <Position X="25" Y="11.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\ResetPassword.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FinPlanWeb.Models.User">
+  <Class Name="SALuminousWeb.Models.User">
     <Position X="31.25" Y="14" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAEQAAAAAAAAAAAAACAAAAAAAgAAA=</HashCode>
       <FileName>Models\User.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Enum Name="FinPlanWeb.Models.PaymentType">
+  <Enum Name="SALuminousWeb.Models.PaymentType">
     <Position X="21.5" Y="15.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAACAAAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>

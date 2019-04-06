@@ -1,7 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinPlanWeb", "FinPlanWeb\FinPlanWeb.csproj", "{5A465AB1-F6FE-46A8-93F4-2D2E2D93856B}"
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.271
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SALuminous", "FinPlanWeb\SALuminous.csproj", "{5A465AB1-F6FE-46A8-93F4-2D2E2D93856B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helpers", "ClassLibrary1\Helpers.csproj", "{D3B4B2E0-1EEE-4A23-87B7-D28095C2336C}"
 EndProject
@@ -22,5 +24,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9E2E7D00-887D-4BE6-95F8-CF38BCC09656}
 	EndGlobalSection
 EndGlobal

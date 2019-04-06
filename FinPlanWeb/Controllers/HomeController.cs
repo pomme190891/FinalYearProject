@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace FinPlanWeb.Controllers
+namespace SALuminousWeb.Controllers
 {
     public class HomeController : BaseController
     {

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using FinPlanWeb.Database;
-using FinPlanWeb.DTOs;
-using FinPlanWeb.Models;
+using SALuminousWeb.Database;
+using SALuminousWeb.DTOs;
+using SALuminousWeb.Models;
 using PayPal.PayPalAPIInterfaceService.Model;
 
-namespace FinPlanWeb.Controllers
+namespace SALuminousWeb.Controllers
 {
     public class PaymentController : BaseController
     {

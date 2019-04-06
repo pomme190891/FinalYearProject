@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 
-namespace FinPlanWeb.Models
+namespace SALuminousWeb.Models
 {
     public class ResetPassword
     {

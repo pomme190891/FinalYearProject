@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 
-namespace FinPlanWeb.Database
+namespace SALuminousWeb.Database
 {
     public class CategoryManagement : DatabaseManagement
     {
@@ -24,7 +24,7 @@ namespace FinPlanWeb.Database
                           ,[categoriesName]
                           ,[date_added]
                           ,[last_modified]
-                      FROM [finplanweb].[dbo].[categories]";
+                      FROM [SALuminousWeb].[dbo].[categories]";
                 var cmd = new SqlCommand(sql, connection);
                 connection.Open();
 

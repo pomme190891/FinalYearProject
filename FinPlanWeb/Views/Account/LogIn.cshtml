@@ -1,7 +1,7 @@
-﻿@model FinPlanWeb.Models.User
+﻿@model SALuminousWeb.Models.User
 
 @{
-    ViewBag.Title = "Bluecoat E-Store Sign-In Page";
+    ViewBag.Title = "SA.Luminous Sign-In Page";
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
 
@@ -18,7 +18,7 @@
     <div class="row" style="padding-top:50px">
         <div class="col-md-6 col-md-offset-3 well">
 
-            <legend>Welcome to Bluecoat E-Store</legend>
+          <legend>Welcome to SA.Luminous Sign-In Page</legend>
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="panel-title">Sign In</div>
@@ -35,7 +35,7 @@
                         @Html.ValidationMessageFor(u => u.Password, null, new{ @class = "help-block error" })
 
                     </div>
-                    <div style="float: left; font-size: 100%; position: relative; top: -10px;"><a href="//help.bluecoatsoftware.com" id="help" data-toggle="tooltip" data-placement="left" title="Please visit: help.bluecoatsoftware.com">Need Help?</a></div>
+                    <div style="float: left; font-size: 100%; position: relative; top: -10px;"><a href="#" id="help" data-toggle="tooltip" data-placement="left" title="Please visit:">Need Help?</a></div>
                     <div style="float: right; font-size: 100%; position: relative; top: -10px;"><a href="#">Forgot password?</a></div>
                     <br/>
                     <div class="input-group">

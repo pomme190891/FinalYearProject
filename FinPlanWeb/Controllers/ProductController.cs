@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using FinPlanWeb.Database;
+using SALuminousWeb.Database;
 
 using System.Web.Script.Serialization;
-using FinPlanWeb.Models;
+using SALuminousWeb.Models;
 
-namespace FinPlanWeb.Controllers
+namespace SALuminousWeb.Controllers
 {
     public class ProductController : BaseController
     {

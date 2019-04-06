@@ -1,8 +1,8 @@
 using System.Web.Mvc;
 using System.Web.Routing;
-using FinPlanWeb.DTOs;
+using SALuminousWeb.DTOs;
 
-namespace FinPlanWeb.Controllers
+namespace SALuminousWeb.Controllers
 {
     public class BaseController : Controller
     {

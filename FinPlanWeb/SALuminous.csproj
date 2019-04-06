@@ -15,13 +15,15 @@
     <AssemblyName>FinPlanWeb</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort>44300</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -195,7 +197,8 @@
     <Content Include="Content\Image\direct_debit-512.png" />
     <Content Include="Content\Image\DIRECT_DEBIT_LOGO.jpg" />
     <Content Include="Content\Image\express-checkout-hero-sg.png" />
-    <Content Include="Content\Image\favicon.png" />
+    <Content Include="Content\Image\favicon.ico" />
+    <Content Include="Content\Image\favicon1.png" />
     <Content Include="Content\Image\makedifferenceimage.png" />
     <Content Include="Content\Image\paypal_logo.jpg" />
     <Content Include="Content\Image\portfolio-1.jpg" />
@@ -203,6 +206,8 @@
     <Content Include="Content\Image\portfolio-3.jpg" />
     <Content Include="Content\Image\portfolio-4.jpg" />
     <Content Include="Content\Image\powered-by-finplan-102x38-trans.jpg" />
+    <Content Include="Content\Image\SA-LUMINOUS.png" />
+    <Content Include="Content\Image\sasmall.png" />
     <Content Include="Content\Image\whobluecoaticon.png" />
     <Content Include="Content\Image\whyfinplanimage.png" />
     <Content Include="Content\scrolling-nav.css" />
@@ -282,6 +287,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="ClassDiagram1.cd" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\bootpag.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -311,7 +317,9 @@
     <Content Include="Scripts\bootstrapValidator.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="TextFile1.txt" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -373,9 +381,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63265</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/FinPlanWeb</IISUrl>
-          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>https://localhost:44300/</IISAppRootUrl>
+          <IISUrl>http://localhost:63265/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using FinPlanWeb.DTOs;
+using SALuminousWeb.DTOs;
 
-namespace FinPlanWeb.Database
+namespace SALuminousWeb.Database
 {
     public class PromoManagement : DatabaseManagement
     {

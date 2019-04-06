@@ -6,12 +6,12 @@ using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
-using FinPlanWeb.Database;
-using FinPlanWeb.DTOs;
-using FinPlanWeb.Models;
+using SALuminousWeb.Database;
+using SALuminousWeb.DTOs;
+using SALuminousWeb.Models;
 
 
-namespace FinPlanWeb.Controllers
+namespace SALuminousWeb.Controllers
 {
     public class AccountController : BaseController
     {

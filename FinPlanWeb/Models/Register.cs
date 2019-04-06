@@ -7,7 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Globalization;
 
-namespace FinPlanWeb.Models
+namespace SALuminousWeb.Models
 {
     public class Register
     {

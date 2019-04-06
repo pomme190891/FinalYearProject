@@ -1,4 +1,4 @@
-﻿namespace FinPlanWeb.Models
+﻿namespace SALuminousWeb.Models
 {
     public class Checkout
     {
