@@ -29,7 +29,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -207,7 +207,9 @@
     <Content Include="Content\Image\portfolio-4.jpg" />
     <Content Include="Content\Image\powered-by-finplan-102x38-trans.jpg" />
     <Content Include="Content\Image\SA-LUMINOUS.png" />
+    <Content Include="Content\Image\saltr.png" />
     <Content Include="Content\Image\sasmall.png" />
+    <Content Include="Content\Image\video.mp4" />
     <Content Include="Content\Image\whobluecoaticon.png" />
     <Content Include="Content\Image\whyfinplanimage.png" />
     <Content Include="Content\scrolling-nav.css" />

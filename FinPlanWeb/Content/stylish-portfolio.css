@@ -118,6 +118,13 @@ body {
   background-size: cover;
 }
 
+.headerv1 {
+  display: table;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
 /* Intro */
 
 .intro {
@@ -217,6 +224,41 @@ i.scroll {
 i.scroll:hover {
   color: #0a5175;
 }
+
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.center {
+  position: fixed;
+  bottom: 250px;
+  width: 100%;
+  padding: 20px;
+}
+
+#sacontent {
+  position: fixed;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1f1f1;
+  width: 100%;
+  padding: 20px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial;
+  font-size: 17px;
+}
+
 /* Responsive */
 
 @media (max-width: 768px) {
