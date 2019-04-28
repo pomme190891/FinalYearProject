@@ -34,7 +34,16 @@ namespace SALuminousWeb.Database
     {
       var strHostName = Dns.GetHostName();
       var ipEntry = Dns.GetHostEntry(strHostName);
-      var ipaddress = Convert.ToString(ipEntry.AddressList[1]);
+      var ipaddress = "";
+      foreach (var ip in ipEntry.AddressList)
+      {
+        if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+        {
+          ipaddress = ip.ToString();
+          break;
+        }
+      }
+
       return ipaddress;
     }
 
