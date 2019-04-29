@@ -215,16 +215,16 @@ namespace SALuminousWeb.Controllers
         /// <returns></returns>
     
         [HttpPost]
-        public ActionResult Login(User user)
+        public ActionResult Login(UserData user)
         {
             var returnUrl = TempData["ReturnUrl"];
             if (ModelState.IsValid)
             {
-                if (UserManagement.IsValid(user.Username, user.Password))
+                if (UserManagement.IsValid(user.Email, user.Password))
                 {
-                    var validUser = UserManagement.GetValidUserList().Single(x => x.UserName == user.Username);
-                    FormsAuthentication.SetAuthCookie(user.Username, user.RememberMe);
-                    Session["User"] = new UserLoginDto { Username = user.Username, Id = validUser.Id, IsAdmin = validUser.IsAdmin};
+                    var validUser = UserManagement.GetValidUserList().Single(x => x.UserName == user.Email);
+                    FormsAuthentication.SetAuthCookie(user.Email, true);
+                    Session["User"] = new UserLoginDto { Username = user.Email, Id = validUser.Id, IsAdmin = validUser.IsAdmin};
                     if (validUser.IsAdmin)
                     {
                         return RedirectToAction("Dashboard", "Admin");
@@ -237,7 +237,7 @@ namespace SALuminousWeb.Controllers
                     return RedirectToAction("ProductView", "Product");
                 }
 
-                if (!UserManagement.IsValidUsername(user.Username))
+                if (!UserManagement.IsValidUsername(user.Email))
                 {
                     ModelState.AddModelError("Username", "This username cannot be found.");
                 }

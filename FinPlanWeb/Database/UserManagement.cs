@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Net;
+using Helper;
 using SALuminousWeb.DTOs;
 
 namespace SALuminousWeb.Database
@@ -24,6 +25,34 @@ namespace SALuminousWeb.Database
       public string IpLog { get; set; }
       public DateTime? ModifiedDate { get; set; }
       public bool IsDeleted { get; set; }
+    }
+
+    /// <summary>
+    /// Validate Email Address
+    /// </summary>
+    /// <param name="email"></param>
+    /// <returns></returns>
+    internal static bool ValidateEmail(string email)
+    {
+      using (var connection = new SqlConnection(GetConnection()))
+      {
+        const string sql = @"SELECT [EmailAddress] FROM [dbo].[users] WHERE [EmailAddress] = @u";
+        var cmd = new SqlCommand(sql, connection);
+        connection.Open();
+        cmd.Parameters
+                  .Add(new SqlParameter("@u", SqlDbType.NVarChar))
+                  .Value = email;
+        var reader = cmd.ExecuteReader();
+        if (reader.HasRows)
+        {
+          reader.Dispose();
+          cmd.Dispose();
+          return true;
+        }
+        reader.Dispose();
+        cmd.Dispose();
+        return false;
+      }
     }
 
     /// <summary>
@@ -67,7 +96,7 @@ namespace SALuminousWeb.Database
         var cmd2 = new SqlCommand(sql2, connection);
         var cmd3 = new SqlCommand(sql3, connection);
 
-        var val = Helpers.SHA1.Encode(password);
+        var val = PasswordHash.CreateHash(password);
 
 
         connection.Open();
@@ -77,19 +106,19 @@ namespace SALuminousWeb.Database
                   .Value = username;
         cmd.Parameters
                   .Add(new SqlParameter("@p", SqlDbType.NVarChar))
-                  .Value = Helpers.SHA1.Encode(password);
+                  .Value = PasswordHash.CreateHash(password);
         cmd2.Parameters
                   .Add(new SqlParameter("@u", SqlDbType.NVarChar))
                   .Value = username;
         cmd2.Parameters
                   .Add(new SqlParameter("@p", SqlDbType.NVarChar))
-                  .Value = Helpers.SHA1.Encode(password);
+                  .Value = PasswordHash.CreateHash(password);
         cmd3.Parameters
                  .Add(new SqlParameter("@u", SqlDbType.NVarChar))
                   .Value = username;
         cmd3.Parameters
                   .Add(new SqlParameter("@p", SqlDbType.NVarChar))
-                  .Value = Helpers.SHA1.Encode(password);
+                  .Value = PasswordHash.CreateHash(password);
         cmd3.Parameters.AddWithValue("@ip", GetIp());
 
 
@@ -131,7 +160,7 @@ namespace SALuminousWeb.Database
 
         cmd.Parameters
            .Add(new SqlParameter("@p", SqlDbType.NVarChar))
-           .Value = Helpers.SHA1.Encode(password);
+           .Value = PasswordHash.CreateHash(password);
 
         using (var reader = cmd.ExecuteReader())
         {
@@ -277,7 +306,7 @@ namespace SALuminousWeb.Database
           CommandText =
                 "Update [dbo].[users] SET Password = @NewPassword WHERE Id = @UserId"
         };
-        cmd.Parameters.AddWithValue("@NewPassword", Helpers.SHA1.Encode(newPassword));
+        cmd.Parameters.AddWithValue("@NewPassword", PasswordHash.CreateHash(newPassword));
         cmd.Parameters.AddWithValue("@UserId", userId);
 
         if (con.State != ConnectionState.Closed) return;
@@ -310,7 +339,7 @@ namespace SALuminousWeb.Database
         cmd.Parameters.AddWithValue("@Firstname", user.FirstName);
         cmd.Parameters.AddWithValue("@Surname", user.SurName);
         cmd.Parameters.AddWithValue("@Firmname", user.FirmName);
-        cmd.Parameters.AddWithValue("@Password", Helpers.SHA1.Encode(user.Password));
+        cmd.Parameters.AddWithValue("@Password", PasswordHash.CreateHash(user.Password));
         cmd.Parameters.AddWithValue("@RegDate", DateTime.Now);
         cmd.Parameters.AddWithValue("@Email", user.Email);
         cmd.Parameters.AddWithValue("@IsAdmin", user.IsAdmin);
@@ -388,7 +417,7 @@ namespace SALuminousWeb.Database
         connection.Open();
         var cmd = new SqlCommand(sql, connection);
         cmd.Parameters.Add(new SqlParameter("@p", SqlDbType.NVarChar)).Value = user.UserName;
-        cmd.Parameters.Add(new SqlParameter("@u", SqlDbType.NVarChar)).Value = Helpers.SHA1.Encode(user.Password);
+        cmd.Parameters.Add(new SqlParameter("@u", SqlDbType.NVarChar)).Value = PasswordHash.CreateHash(user.Password);
       }
     }
 
