@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Net;
 using Helper;
 using SALuminousWeb.DTOs;
+using SALuminousWeb.Models;
 
 namespace SALuminousWeb.Database
 {
@@ -53,6 +54,11 @@ namespace SALuminousWeb.Database
         cmd.Dispose();
         return false;
       }
+    }
+
+    internal static void Add(UserData user)
+    {
+      throw new NotImplementedException();
     }
 
     /// <summary>
